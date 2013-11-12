@@ -77,7 +77,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/Users/coco/Documents/django/wickets/static/",    
+    "/Users/coco/Desktop/Geek/djangovino/static/",    
 )
 
 
@@ -121,16 +121,14 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'wickets.urls'
+ROOT_URLCONF = 'djangovino.urls'
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wickets.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "/Users/coco/Documents/django/wickets/templates"
+    "/Users/coco/Desktop/Geek/djangovino/templates/",    
 )
 
 INSTALLED_APPS = (
@@ -143,10 +141,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'ticket',
     'cave',
     #'login',
-    'registration',
+    #'registration',
     #'dajaxice',
     #'dajax',
 
