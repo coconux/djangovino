@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^voirCave/', views.voirCave, name='voirCave'),
     url(r'^add_bouteille$', views.add_bouteille, name='add_bouteille'),
     url(r'^place_bouteille$', views.place_bouteille, name='place_bouteille'),
+    url(r'^libere_bouteille$', views.libere_bouteille, name='libere_bouteille'),
 
     #url(r'^$', views.TicketView, name='TicketView')
 )

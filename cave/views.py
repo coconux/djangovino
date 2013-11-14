@@ -18,6 +18,35 @@ def home(request):
 
    return HttpResponse("hello")
 
+@csrf_exempt
+def libere_bouteille(request):
+    # recuperation de la liste des bouteille
+    post = request.POST['list_bouteille']
+    # le post est au format json. On le désérialize
+    list_bouteille = json.loads(post)
+    # on affiche chaque élément. Ici vous devez faire votre traitement, une insertion
+    # en base de données par exemple
+    for bouteille in list_bouteille:
+        nom = bouteille['nom']
+        id = bouteille['id']
+        id_cave = bouteille['id_cave']
+        #x = bouteille['x']
+        #y = bouteille['y']
+        print ("Placement de "+id+"("+nom+") dans la cave:"+id_cave+" dans le stock")
+
+    #On recupere la bouteille en base
+    b=Bouteille.objects.get(id=id)
+    #ON recupere la cellule en base
+    #cell=Cellule.objects.get(cave=Cave.objects.get(id=id_cave),x=x,y=y)
+    #On place la bouteille
+    #b.place(cell)
+    b.libere()
+
+    # on fait un retour au client
+    json_data = json.dumps({"HTTPRESPONSE":"ok"})
+    # json data est maintenant au format JSON et pret à etre envoyé au client
+    return HttpResponse(json_data, mimetype="application/json")
+
 
 @csrf_exempt
 def place_bouteille(request):
@@ -41,8 +70,6 @@ def place_bouteille(request):
     cell=Cellule.objects.get(cave=Cave.objects.get(id=id_cave),x=x,y=y)
     #On place la bouteille
     b.place(cell)
-
-
 
     # on fait un retour au client
     json_data = json.dumps({"HTTPRESPONSE":"ok"})
