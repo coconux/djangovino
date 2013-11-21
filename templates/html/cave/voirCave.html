@@ -61,6 +61,15 @@
             });
         }
 
+        function notifyStockByCave(){
+            $.pnotify({
+                title: 'Bootstrap Info',
+                text: 'Remise d\'une bouteille en stock',
+                type: 'info',
+                styling: 'bootstrap'
+            });
+        }
+
 		$(function(){
 
             $('.right td.title').droppable({
@@ -72,8 +81,16 @@
 				},
 				onDrop:function(e,source){
 
-                    alert(e);
-                    alert(source);
+                    // on glisse vers le contour de la cave --> remise en stock
+                    id_cave = $(this).parents("table").attr("id_cave")
+                    id2=($(source).attr("id"));
+                    nom2 =($(source).html());
+
+                    //on libere la bouteille
+                     ajaxLibereBouteille(id_cave,nom2,id2);
+                    notifyStockByCave()
+
+
                 }
 
             });
@@ -203,7 +220,6 @@
            {% for b in bouteilles %}
                <tr>
 
-
                {%  if  b.celluleB.cave.id == cave.id  %}
                 dans la cave en {{ b.celluleB.x }} {{ b.celluleB.y }}
                <td><div id="{{ b.id }}" id_bouteille="bouteille_{{ b.id }}" class="itemCave bouteille_{{ b.id }}">{{ b }} En cave </div></td>
@@ -225,7 +241,7 @@
             <tr>
                 <td class="blank">#</td>
                 {% for x in colonnes %}
-                    <td class="title">{{ x }}</td>
+                    <td class="title ">{{ x }}</td>
                 {% endfor %}
             </tr>
             {% for y in lignes %}
@@ -262,6 +278,23 @@
 				proxy:'clone'
 			});
 
+
+
+function refreshCave(id_cave){
+
+
+    $.ajax({
+        type: "POST",
+        url: "/cave/voirCave/",
+        dataType: "json",
+        traditional: true,
+        data: {'list_bouteille': JSON.stringify(tab_bouteille)},
+        success: function(data) {
+            console.log(data["HTTPRESPONSE"]);
+        }
+});
+
+}
 
 function ajaxLibereBouteille(id_cave,nom,id){
         tab_bouteille = Array()
