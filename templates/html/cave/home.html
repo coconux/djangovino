@@ -4,49 +4,56 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-  <head>
-  </head>
+<head>
+</head>
 
-  <body>
-
-
-    {% block navbar-form %}
-            <div class="navbar-form navbar-right">
-  {% if user.is_authenticated %}
-      <button type="button" class="btn btn-info">Welcome {{ user.username }} </button>
-          <a class="btn btn-default" href="/accounts/logout" role="button">Logout</a>
-
-{% else %}
-            <a href="/accounts/login/"><button type="button" class="btn btn-primary">Login</button></a>
-           <a href="/accounts/register/"><button type="button" class="btn btn-primary">Register</button></a>
-  {% endif %}
-
-        </div>
-          </form>
-            {% endblock %}
+<body>
 
 
+{% block navbar-form %}
+    <div class="navbar-form navbar-right">
+        {% if user.is_authenticated %}
+            <button type="button" class="btn btn-info">Welcome {{ user.username }} </button>
+            <a class="btn btn-default" href="/accounts/logout" role="button">Logout</a>
 
+        {% else %}
 
-       {% block content %}
+            <a href="/accounts/login/">
+                <button type="button" class="btn btn-primary">Login</button>
+            </a>
+            <a href="/accounts/register/">
+                <button type="button" class="btn btn-primary">Register</button>
+            </a>
+        {% endif %}
 
-
-                      <div class="starter-template">
-                        <h1>Home</h1>
-                        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-                      </div>
-
-            {% endblock %}
+    </div>
+    </form>
+{% endblock %}
 
 
 
-  {% block containerG %}
-        <div class="col-md-4">
-          <h2>A gauche</h2>
-          <p> Chargement mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-  {% endblock %}
 
-  </body>
+{% block content %}
+
+
+        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a
+            mostly barebones HTML document.</p>
+    </div>
+
+{% endblock %}
+
+
+
+{% block containerG %}
+    <div class="col-md-4">
+        <h2>A gauche</h2>
+
+        <p> Chargement mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+            mollis euismod. Donec sed odio dui. </p>
+
+        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+    </div>
+{% endblock %}
+
+</body>
 </html>

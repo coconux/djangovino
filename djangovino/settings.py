@@ -181,7 +181,7 @@ LOGGING = {
         },
     }
 }
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/logout/'
 REGISTRATION_OPEN = True
 EMAIL_HOST = 'localhost'

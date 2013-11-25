@@ -7,6 +7,7 @@ from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 
 #[ Cellule.objects.get_or_create(cave=c,x=1,y=1, defaults={'cave':c,'x':1,'y':w[1]})  for int(w) in range (0,len(A),1)]
@@ -14,8 +15,8 @@ from django.template import RequestContext
 def testcave(request):
    return render_to_response('html/cave/dnd.html')
 
+@login_required
 def home(request):
-
     return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
 
