@@ -6,6 +6,7 @@ from cave.models import Cave, Couleur,TypeBouteille,Classification,Bouteille,Ann
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
 
 
 #[ Cellule.objects.get_or_create(cave=c,x=1,y=1, defaults={'cave':c,'x':1,'y':w[1]})  for int(w) in range (0,len(A),1)]
@@ -14,9 +15,13 @@ def testcave(request):
    return render_to_response('html/cave/dnd.html')
 
 def home(request):
-   return render_to_response('html/cave/home.html')
 
-   return HttpResponse("hello")
+    return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
+    #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
+
+
+
+
 
 @csrf_exempt
 def libere_bouteille(request):
