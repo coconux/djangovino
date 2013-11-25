@@ -143,13 +143,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'cave',
     #'login',
-    #'registration',
+    'registration',
+    'registration_bootstrap',
     #'dajaxice',
     #'dajax',
+    'crispy_forms',
 
     # Uncomment the next line to enable admin documentation:
 )
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course,use a different value.
+ACCOUNT_ACTIVATION_DAYS = 1 # One-week activation window; you may, of course,use a different value.
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -179,7 +181,7 @@ LOGGING = {
         },
     }
 }
-LOGIN_URL = '/login/'
+LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/logout/'
 REGISTRATION_OPEN = True
 EMAIL_HOST = 'localhost'

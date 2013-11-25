@@ -6,6 +6,8 @@ from cave.models import Cave, Couleur,TypeBouteille,Classification,Bouteille,Ann
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 
 #[ Cellule.objects.get_or_create(cave=c,x=1,y=1, defaults={'cave':c,'x':1,'y':w[1]})  for int(w) in range (0,len(A),1)]
@@ -13,10 +15,43 @@ from django.views.decorators.csrf import csrf_exempt
 def testcave(request):
    return render_to_response('html/cave/dnd.html')
 
+@login_required
 def home(request):
-   return render_to_response('html/cave/home.html')
+    return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
+    #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
 
-   return HttpResponse("hello")
+
+
+
+
+@csrf_exempt
+def libere_bouteille(request):
+    # recuperation de la liste des bouteille
+    post = request.POST['list_bouteille']
+    # le post est au format json. On le désérialize
+    list_bouteille = json.loads(post)
+    # on affiche chaque élément. Ici vous devez faire votre traitement, une insertion
+    # en base de données par exemple
+    for bouteille in list_bouteille:
+        nom = bouteille['nom']
+        id = bouteille['id']
+        id_cave = bouteille['id_cave']
+        #x = bouteille['x']
+        #y = bouteille['y']
+        print ("Placement de "+id+"("+nom+") dans la cave:"+id_cave+" dans le stock")
+
+    #On recupere la bouteille en base
+    b=Bouteille.objects.get(id=id)
+    #ON recupere la cellule en base
+    #cell=Cellule.objects.get(cave=Cave.objects.get(id=id_cave),x=x,y=y)
+    #On place la bouteille
+    #b.place(cell)
+    b.libere()
+
+    # on fait un retour au client
+    json_data = json.dumps({"HTTPRESPONSE":"ok"})
+    # json data est maintenant au format JSON et pret à etre envoyé au client
+    return HttpResponse(json_data, mimetype="application/json")
 
 
 @csrf_exempt
@@ -41,8 +76,6 @@ def place_bouteille(request):
     cell=Cellule.objects.get(cave=Cave.objects.get(id=id_cave),x=x,y=y)
     #On place la bouteille
     b.place(cell)
-
-
 
     # on fait un retour au client
     json_data = json.dumps({"HTTPRESPONSE":"ok"})

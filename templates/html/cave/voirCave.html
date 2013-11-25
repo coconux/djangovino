@@ -1,12 +1,16 @@
+
 {% load staticfiles %}
 
+
+
+<script type="text/javascript" src="{% static "js/jquery-2.0.2.min.js"%}"></script>
 
 <script type="text/javascript" src="{% static "bootstrap/js/bootstrap.js"%}"></script>
 <link href="{% static "css/jquery.pnotify.default.css"%}" media="all" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" media="all" href="{% static "bootstrap/css/bootstrap.css"%}" />
 
 
-<script type="text/javascript" src="{% static "js/jquery-2.0.2.min.js"%}"></script>
+
 <script type="text/javascript" src="{% static "js/cave/dnd2.js"%}"></script>
 <script type="text/javascript" src="{% static "js/jquery.sortable.min.js"%}"></script>
 <script type="text/javascript" src="{% static "js/jquery.sortable.js"%}"></script>
@@ -61,6 +65,15 @@
             });
         }
 
+        function notifyStockByCave(){
+            $.pnotify({
+                title: 'Bootstrap Info',
+                text: 'Remise d\'une bouteille en stock',
+                type: 'info',
+                styling: 'bootstrap'
+            });
+        }
+
 		$(function(){
 
             $('.right td.title').droppable({
@@ -72,8 +85,16 @@
 				},
 				onDrop:function(e,source){
 
-                    alert(e);
-                    alert(source);
+                    // on glisse vers le contour de la cave --> remise en stock
+                    id_cave = $(this).parents("table").attr("id_cave")
+                    id2=($(source).attr("id"));
+                    nom2 =($(source).html());
+
+                    //on libere la bouteille
+                     ajaxLibereBouteille(id_cave,nom2,id2);
+                    notifyStockByCave()
+
+
                 }
 
             });
@@ -91,24 +112,78 @@
 				},
 				onDrop:function(e,source){
 					$(this).removeClass('over');
+                    //this est le td ou on drop
+                    // source et la div qui se place dans le td
 
+                    // Si la bouteille que l'on deplace était deja en cave
 					if ($(source).hasClass('assigned')){
+                        // Si le td a deja un div (deja une bouteille)
                         if ($(this).children("div").data() != null)
                          {
+                             id_cave = $(this).parents("table").attr("id_cave")
+
+                            //bouteille a remettre en stock
+                            x=($(this).attr("x"));
+                            y=($(this).attr("y"));
+                            //On prend l'id de la bouteille (div) contenu dans le td (this)
+                            id=($(this).children("div").attr("id"));
+                            nom=($(this).children("div").html())
+
+                            // bouteille a placer
+                            id2=($(source).attr("id"));
+                            nom2 =($(source).html());
+
+                            //on libere la bouteille ou on drop
+                            ajaxLibereBouteille(id_cave,nom,id);
+                            //on place la bouteille
+                            ajaxPlaceByCave(id_cave,nom2,id2,x,y);
+
                                 notifyReplaceByCave();
+
                          }
+
+                        // SI le td est libre
                         else{
-                             notifyPlaceByCave();
+                            x=($(this).attr("x"));
+                            y=($(this).attr("y"));
+                            id=($(source).attr("id"));
+                            nom =($(source).html());
+                            id_cave = $(this).parents("table").attr("id_cave")
+
+                            ajaxPlaceByCave(id_cave,nom,id,x,y);
+
+                            notifyPlaceByCave();
 
                         }
 						$(this).empty().append(source);
-					} else {
+					}
+                    // si la bouteille est dans le stock
+                    else {
 						var c = $(source).clone().addClass('assigned');
+                        // Si le td a deja une div (deja un bouteille)
                         if ($(this).children("div").data() != null)
                             {
+                              id_cave = $(this).parents("table").attr("id_cave")
+                            // la bouteille en stock a placer dans la cave
+                            id2=c.attr("id");
+                            nom2 = c.html();
+
+                            //bouteille a remettre en stock
+                            x=($(this).attr("x"));
+                            y=($(this).attr("y"));
+                            //On prend l'id de la bouteille (div) contenu dans le td (this)
+                            id=($(this).children("div").attr("id"));
+                            nom=($(this).children("div").html())
+
+                            //on libere la bouteille ou on drop
+                            ajaxLibereBouteille(id_cave,nom,id);
+                            //on place la bouteille
+                            ajaxPlaceByCave(id_cave,nom2,id2,x,y);
+
                                 notifyReplaceByStock();
 
                          }
+                        // Si le td est libre
                         else{
                             x=($(this).attr("x"));
                             y=($(this).attr("y"));
@@ -149,7 +224,6 @@
            {% for b in bouteilles %}
                <tr>
 
-
                {%  if  b.celluleB.cave.id == cave.id  %}
                 dans la cave en {{ b.celluleB.x }} {{ b.celluleB.y }}
                <td><div id="{{ b.id }}" id_bouteille="bouteille_{{ b.id }}" class="itemCave bouteille_{{ b.id }}">{{ b }} En cave </div></td>
@@ -171,7 +245,7 @@
             <tr>
                 <td class="blank">#</td>
                 {% for x in colonnes %}
-                    <td class="title">{{ x }}</td>
+                    <td class="title ">{{ x }}</td>
                 {% endfor %}
             </tr>
             {% for y in lignes %}
@@ -210,6 +284,39 @@
 
 
 
+function refreshCave(id_cave){
+
+
+    $.ajax({
+        type: "POST",
+        url: "/cave/voirCave/",
+        dataType: "json",
+        traditional: true,
+        data: {'list_bouteille': JSON.stringify(tab_bouteille)},
+        success: function(data) {
+            console.log(data["HTTPRESPONSE"]);
+        }
+});
+
+}
+
+function ajaxLibereBouteille(id_cave,nom,id){
+        tab_bouteille = Array()
+        tab_bouteille[0]={"id_cave": id_cave, "nom": nom, "id": id};
+
+    $.ajax({
+        type: "POST",
+        url: "/cave/libere_bouteille",
+        dataType: "json",
+        traditional: true,
+        data: {'list_bouteille': JSON.stringify(tab_bouteille)},
+        success: function(data) {
+            console.log(data["HTTPRESPONSE"]);
+        }
+});
+
+}
+
 function ajaxPlaceByStock(id_cave,nom,id,x,y){
 
     tab_bouteille = Array()
@@ -223,9 +330,14 @@ function ajaxPlaceByStock(id_cave,nom,id,x,y){
         data: {'list_bouteille': JSON.stringify(tab_bouteille)},
         success: function(data) {
             console.log(data["HTTPRESPONSE"]);
-            alert(data)
         }
 });
+
+}
+
+function ajaxPlaceByCave(id_cave,nom,id,x,y){
+
+        ajaxPlaceByStock(id_cave,nom,id,x,y);
 
 }
 
@@ -239,7 +351,6 @@ $.ajax({
         data: {'list_bouteille': JSON.stringify(tab_bouteille)},
         success: function(data) {
             console.log(data["HTTPRESPONSE"]);
-            alert(data)
         }
 });
 

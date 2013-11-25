@@ -131,6 +131,7 @@ class Bouteille(models.Model):
     # Sort la bouteille d'un emplacement    
     def libere(self):
         self.place(None)
+        self.save()
 
     # Met la bouteille dans un emplacement
     def place(self,dest):
