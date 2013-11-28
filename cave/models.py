@@ -7,10 +7,13 @@ from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.validators import MaxLengthValidator
 
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Cave(models.Model):
+
+    user = models.ForeignKey(User)
     nom = models.CharField(default="Ma cave",max_length=500, help_text="")
     lieu = models.CharField(default="Ma cave",max_length=500, help_text="")
     lignes = models.IntegerField(default=3,help_text="Nombre de ligne de\
@@ -105,7 +108,9 @@ class RefBouteille(models.Model):
 
 
 class Bouteille(models.Model):
-    
+
+    user = models.ForeignKey(User)
+
     refB = models.ForeignKey('RefBouteille', related_name='maReference', help_text="la reference bouteille",\
                                blank=True, null=True, on_delete=models.SET_NULL)
 

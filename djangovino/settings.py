@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
+    #'object_tools',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'cave',
@@ -147,7 +148,8 @@ INSTALLED_APPS = (
     'registration_bootstrap',
     #'dajaxice',
     #'dajax',
-    'crispy_forms',
+    #'crispy_forms',
+    'south',
 
     # Uncomment the next line to enable admin documentation:
 )
