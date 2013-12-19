@@ -1,0 +1,185 @@
+{% extends "html/cave/home.html" %}
+
+
+{% block title %}Stock{% endblock %}
+
+
+
+
+{% block navbar-form %}
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+    - - -
+
+
+{% endblock %}
+{% block container %}
+
+<script>
+
+function submit_ajax(page){
+    champs=$("#criteria").val();
+    $.ajax({
+        type: "POST",
+        url: "/cave/searchStockAjax",
+        dataType: "json",
+        traditional: true,
+        data: {'champs': JSON.stringify(champs),'page':JSON.stringify(page)},
+        success: function(data) {
+            console.log(data["HTTPRESPONSE"]);
+        }
+});
+
+
+}
+
+$(document).ready(function() {
+	$('#searchSubmit').click(function() {
+		q = $('#criteria').val();
+		$('#ajaxBlock').html('&nbsp;').load('{% url demo_user_search %}?criteria=' + criteria);
+	});
+});
+
+
+
+</script>
+
+    <ul class="nav nav-tabs nav-justified">
+        <li><a href="#recherche" data-toggle="tab">Recherche <span class="badge">{{ nbBouteille }}</span></a></li>
+        <li><a href="#categorie" data-toggle="tab">Categorie <span class="badge">42</span></a></li>
+
+    </ul>
+    <div id="ajaxBlock">
+
+
+    </div>
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade in active" id="recherche">
+            <form method="post" action="/cave/searchStock" class="navbar-form navbar-left " role="search"> {% csrf_token %}
+
+                <div class="form-group">
+                    <input id="criteria" name="criteria" type="text" class="form-control" placeholder="Search" value="{{ criteria }}">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+                <button id="searchSubmit" type="button" class="btn btn-default" >Submit_ajax</button>
+            </form>
+
+
+            <br/>
+            <br/>
+            {% for x in listeBouteille %}
+                <br/>
+                <img src="{{ x.imageB.url }}" width="40px" height="40px">
+
+                <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span>
+
+            {% endfor %}
+            <br/>
+
+            <div class="pagination">
+    <span class="step-links">
+        <ul class="pager">
+
+            {% if listeBouteille.has_previous %}
+                <li class=" "><a href="?page={{ listeBouteille.previous_page_number }}&criteria={{ criteria }}"> &larr; Previous</a>
+                </li>
+
+            {% else %}
+                <li class=" disabled"><a> &larr; Previous</a></li>
+
+            {% endif %}
+
+
+            <span class="current">
+            Page {{ listeBouteille.number }} of {{ listeBouteille.paginator.num_pages }}.
+        </span>
+
+            {% if listeBouteille.has_next %}
+                <li class=""><a href="?page={{ listeBouteille.next_page_number }}&criteria={{ criteria }}">Next &rarr;</a></li>
+                <li class=""><a id="nextPage" href="#" next={{ listeBouteille.next_page_number }} onclick="submit_ajax()" >Next &rarr;</a></li>
+            {% else %}
+                <li class=" disabled"><a>Next &rarr;</a></li>
+
+            {% endif %}
+
+        </ul>
+    </span>
+            </div>
+
+
+        </div>
+
+
+        <div class="tab-pane fade" id="categorie">
+            <ul class="nav nav-tabs nav-justified">
+                <li><a href="#rouge" data-toggle="tab">Rouge <span class="badge">{{ nb }}</span></a></li>
+                <li><a href="#blanc" data-toggle="tab">Blanc <span class="badge">42</span></a></li>
+                <li><a href="#rose" data-toggle="tab">Rosé <span class="badge">42</span> </a></li>
+                <li><a href="#toutes" data-toggle="tab">Toutes <span class="badge">42</span> </a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="rouge">
+                    {% for x in listeBouteille2 %}
+                        <br/>
+                        <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span>
+                        <img src="{{ x.imageB.url }}" width="40px" height="40px">
+
+                    {% endfor %}
+                    <br/>
+
+                    <div class="pagination">
+    <span class="step-links">
+        <ul class="pager">
+
+            {% if listeBouteille2.has_previous %}
+                <li class=" "><a href="?pageRouge={{ listeBouteille2.previous_page_number }}"> &larr; Previous</a>
+                </li>
+
+            {% else %}
+                <li class=" disabled"><a> &larr; Previous</a></li>
+
+            {% endif %}
+
+
+            <span class="current">
+            Page {{ listeBouteille2.number }} of {{ listeBouteille2.paginator.num_pages }}.
+        </span>
+
+            {% if listeBouteille2.has_next %}
+                <li class=""><a href="?pageRouge={{ listeBouteille2.next_page_number }}">Next &rarr;</a></li>
+            {% else %}
+                <li class=" disabled"><a>Next &rarr;</a></li>
+
+            {% endif %}
+
+        </ul>
+    </span>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade" id="blanc">b</div>
+                <div class="tab-pane fade" id="rose">c</div>
+                <div class="tab-pane fade" id="toutes">...</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}
+

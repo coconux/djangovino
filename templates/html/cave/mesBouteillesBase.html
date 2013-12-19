@@ -1,0 +1,51 @@
+
+
+{% block containerStock %}
+
+    {% for x in listeBouteille %}
+        <br/>
+        <img src="{{ x.imageB.url }}" width="40px" height="40px">
+
+        <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span>
+
+    {% endfor %}
+    <br/>
+
+    <div class="pagination">
+    <span class="step-links">
+        <ul class="pager">
+
+            {% if listeBouteille.has_previous %}
+                <li class=""><a id="previousPage" href="#"
+                                onclick="submit_ajax({{ listeBouteille.previous_page_number }})">&larr;
+                    Previous</a>
+                </li>
+
+
+            {% else %}
+                <li class=" disabled"><a> &larr; Previous</a></li>
+
+            {% endif %}
+
+
+            <span class="current">
+            Page {{ listeBouteille.number }} of {{ listeBouteille.paginator.num_pages }}.
+        </span>
+
+            {% if listeBouteille.has_next %}
+                <li class=""><a id="nextPage" href="#"
+                                onclick="submit_ajax({{ listeBouteille.next_page_number }})">Next &rarr;</a></li>
+            {% else %}
+                <li class=" disabled"><a>Next &rarr;</a></li>
+
+            {% endif %}
+
+        </ul>
+    </span>
+
+    </div>
+
+
+
+{% endblock %}
+

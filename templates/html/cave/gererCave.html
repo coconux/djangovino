@@ -1,0 +1,47 @@
+{% extends "html/cave/home.html" %}
+
+
+{% block title %}Mes caves{% endblock %}
+
+
+
+
+{% block navbar-form %}
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+    - - -
+
+
+{% endblock %}
+
+{% block container %}
+
+    <script>
+
+    </script>
+
+
+
+    {% for x in mesCaves %}
+        <br/>
+
+        <span class="title ">{{ x.nom }}-- Capacite: {{ x.capacite }} -- Occupée: {{ x.emplacementOccupe }} -- Restant(s) :{{ x.emplacementLibre }} <a href="/cave/gererCave?{{ x.id }}">Gérer</a></span>
+
+    {% endfor %}
+
+    <br/>
+    ---------------------------
+
+
+
+
+
+{% endblock %}
