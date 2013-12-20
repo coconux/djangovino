@@ -1,40 +1,90 @@
 
-{% extends "html/cave/home.html" %}
 
-
-{% block title %}Log in{% endblock %}
+{% block title %}Stock{% endblock %}
 
 
 
 
-    {% block navbar-form %}
+{% block navbar-form %}
 
-    <form method="post" action="?next={{ next|default:"/cave" }}" class="navbar-form navbar-right">{% csrf_token %}
 
-            <div class="form-group">
 
-              <input id="id_username" maxlength="254" name="username" type="text" placeholder="@Login" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="id_password" name="password" type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-           <a href="/accounts/register/"><button type="button" class="btn btn-primary">Register</button></a>
-    </div>
-          </form>
-
-    {% endblock %}
+{% endblock %}
 
 
 
 {% block content %}
 
-{% if form.errors %}
-<p class="error">Please correct the errors below:</p>
-{% endif %}
-- - -
 
-<p>If you don't have an account, you can <a href="/accounts/register/">sign
-up</a> for one.</p>
-<p>If you forgot your password, you can <a href="/accounts/password/reset/">reset it</a>.</p>
+
+
+
+{% endblock %}
+
+{% block container %}
+
+    <script>
+
+        function submit_ajax(page) {
+            criteria = $('#criteria').val();
+
+            $('#ajaxBlock').html('&nbsp;').load('/cave/searchStockAjax?criteria=' + criteria + '&page=' + page);
+        }
+
+        $(document).ready(function () {
+
+            submit_ajax();
+
+
+            $('#criteria').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    submit_ajax()
+                    return false;
+                }
+            });
+        });
+
+    $(document).ajaxStart(function() {
+	$('#spinner').show();
+}).ajaxStop(function() {
+	$('#spinner').hide();
+});
+
+    </script>
+
+
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade in active" id="recherche">
+            <div class="navbar-form navbar-left ">
+
+                <div class="form-group">
+                    <input id="criteria" name="criteria" type="text" class="form-control" placeholder="Search"
+                           value="{{ criteria }}">
+                </div>
+                <button id="searchSubmit" onclick="submit_ajax()" type="button" class="btn btn-default"> GlouGlou
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="clear:left;display:none" id="spinner">
+    *** chargement ***
+    </div>
+
+    <div style="clear:left" id="ajaxBlock">
+
+    </div>
+
+
+
+
+    ---------------------------
+
+
+
+
+
 {% endblock %}

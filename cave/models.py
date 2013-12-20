@@ -11,9 +11,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Cave(models.Model):
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='monProprio')
     nom = models.CharField(default="Ma cave",max_length=500, help_text="")
     lieu = models.CharField(default="Ma cave",max_length=500, help_text="")
     lignes = models.IntegerField(default=3,help_text="Nombre de ligne de\
@@ -28,7 +29,7 @@ class Cave(models.Model):
     def save(self, *args, **kwargs):
         super(Cave, self).save(*args, **kwargs) # Appeler la "vraie" méthode save().
         #Creer les cellules
-        A =[(x, y) for x in [xx for xx in range(0,self.colonnes,1)] for y in [yy for yy in range (0,self.lignes,1)] ]
+        A =[(x, y)  for y in [yy for yy in range (0,self.lignes,1)] for x in [xx for xx in range(0,self.colonnes,1)]  ]
         [ Cellule.objects.get_or_create(cave=self,x=A[X][0],y=A[X][1], defaults={'cave':self,'x':A[X][0],'y':A[X][1]})  for X in range (0,len(A),1)]
         #do_something_else()
     
@@ -101,15 +102,16 @@ class RefBouteille(models.Model):
 
     regionB = models.OneToOneField('Region', primary_key=False, blank=True ,null=True)
 
-    imageB = models.FileField(blank=True, null=True,upload_to=upload_path )
+    imageB = models.FileField(default="void.jpeg",upload_to=upload_path )
 
     def __str__(self):
         return '%s' %self.nomB
 
 
+
 class Bouteille(models.Model):
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name='monProprioBouteille')
 
     refB = models.ForeignKey('RefBouteille', related_name='maReference', help_text="la reference bouteille",\
                                blank=True, null=True, on_delete=models.SET_NULL)

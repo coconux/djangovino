@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+*.pyc
+=======
+.idea/*
+>>>>>>> Deplacement-bouteille+registration

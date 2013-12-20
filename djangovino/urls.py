@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from django.conf.urls.defaults import *
+#from django.conf.urls.defaults import *
+from django.conf.urls import *
 
 
 # Uncomment the next two lines to enable the admin:
@@ -26,6 +27,7 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.default.urls')),
 
 
+
     #(r'^object-tools/', include(object_tools.tools.urls)),
 
     # Uncomment the next line to enable the admin:
@@ -38,5 +40,8 @@ urlpatterns = patterns('',
 
 
 )
-
+urlpatterns += patterns('',
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.MEDIA_ROOT,
+        }))
 

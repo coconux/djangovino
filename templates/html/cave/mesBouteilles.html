@@ -28,7 +28,7 @@
         function submit_ajax(page) {
             criteria = $('#criteria').val();
 
-            $('#ajaxBlock').html('&nbsp;').load('/cave/searchStockAjax?criteria=' + criteria + '&page=' + page);
+            $('#ajaxBlock').html('&nbsp;').load('/cave/searchBouteillesAjax?criteria=' + criteria + '&page=' + page);
         }
 
         $(document).ready(function () {

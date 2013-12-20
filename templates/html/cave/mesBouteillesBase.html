@@ -4,10 +4,19 @@
 
     {% for x in listeBouteille %}
         <br/>
-        <img src="{{ x.imageB.url }}" width="40px" height="40px">
+        <div class="bouteille" id="bouteille_{{ x.id }} " id_bouteille="{{ x.id }}">
+        <img src="{{ x.refB.imageB.url }}" width="40px" height="40px">
 
-        <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span>
+        <span class="title ">{{ x.refB.nomB }} </span>
 
+
+        </div>
+                {% if  x.celluleB.occupe  %}
+                Placée dans: <span style="color:red" title="Ligne: {{ x.celluleB.x }} Colonne: {{ x.celluleB.y }}">            </span>
+
+                 <a href="/cave/gererCave/{{ x.celluleB.cave_id }}"> {{ x.celluleB.cave.nom }} </a>
+
+        {% endif %}
     {% endfor %}
     <br/>
 
@@ -45,7 +54,21 @@
 
     </div>
 
+<script>
 
+$('.monStock div.bouteille').draggable({
+				revert:true,
+				proxy:'clone'
+			});
+
+
+$('.cave div.bouteille').draggable({
+				revert:true,
+				proxy:'clone'
+			});
+
+
+</script>
 
 {% endblock %}
 

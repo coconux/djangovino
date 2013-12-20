@@ -1,6 +1,7 @@
 // ajoute la propriété pour le drop et le transfert de données
 $.event.props.push('dataTransfer');
 
+
 $(document).ready(function() {
     var i, $this, $log = $('#log');
 
