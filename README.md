@@ -1,11 +1,10 @@
-djangovino
+Djangovino
+--------------
 
 Description
 ==========
 
-
-Will become a sub heading
---------------
+A venir ...
 
 *This will be Italic*
 
