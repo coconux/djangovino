@@ -21,8 +21,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "js/jquery-2.0.2.min.js" %}"></script>
-    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -55,8 +54,7 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -68,10 +66,23 @@
           <a class="navbar-brand" href="#">DjangoVino</a>
         </div>
 
-            {% block navbar-form %}
-            {% endblock %}
+
+        {% block navbar-menu %}
+
+
+        {% endblock %}
+
+
+
+
+         {% block navbar-form %}
+
+         {% endblock %}
+
       </div>
     </div>
+
+
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
