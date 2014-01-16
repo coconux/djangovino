@@ -59,6 +59,32 @@ class TousLesUtilisateurs(ListView):
 #[ Cellule.objects.get_or_create(cave=c,x=1,y=1, defaults={'cave':c,'x':1,'y':w[1]})  for int(w) in range (0,len(A),1)]
 
 
+@login_required()
+@csrf_exempt
+def addToStockFromRef(request):
+    user = request.user
+
+    post = request.POST['list_bouteille']
+    # le post est au format json. On le désérialize
+    list_bouteille = json.loads(post)
+    # on affiche chaque élément. Ici vous devez faire votre traitement, une insertion
+    # en base de données par exemple
+    for bouteille in list_bouteille:
+        #nom = bouteille['nom']
+        idRef = bouteille['idRef']
+        nb = bouteille['nb']
+        for i in range(0, nb):
+            newB = Bouteille.objects.create(user=user, refB_id=idRef)
+
+
+
+        print ("Placement de "+str(idRef) + "nb:"+str(nb))
+
+    # on fait un retour au client
+    json_data = json.dumps({"HTTPRESPONSE":"ok"})
+    # json data est maintenant au format JSON et pret à etre envoyé au client
+    return HttpResponse(json_data, mimetype="application/json")
+
 
 @login_required()
 def gerercave(request,num):
@@ -98,7 +124,7 @@ def mescaves(request):
     mesCaves = Cave.objects.filter(user=user)
     nbCave = mesCaves.count()
 
-    template = 'html/cave/mescaves.html'
+    template = 'html/cave/mesCaves.html'
     data = {
         'nbCave':nbCave,
         'mesCaves':mesCaves,
@@ -115,7 +141,7 @@ def home(request):
     return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
 
-@login_required
+#@login_required
 def stock(request):
 
 
@@ -129,7 +155,7 @@ def stock(request):
 
 
     #return render_to_response('html/cave/stock.html', context_instance=RequestContext(request))
-    return render(request,'html/cave/stockPage.html', context_instance=RequestContext(request))
+    return render(request,'html/cave/stock.html', context_instance=RequestContext(request))
 
     #return render_to_response('html/cave/stock.html',{'listeDerniereBouteille':listeDerniereBouteille,'nb':3}, context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
@@ -224,7 +250,7 @@ def searchBouteillesAjax(request):
     else:
             raise Http404
 
-@login_required
+#@login_required
 def searchStockAjax(request):
     #if request.is_ajax():
     if True:

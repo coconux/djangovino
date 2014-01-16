@@ -14,13 +14,13 @@
 
     {% if user.is_authenticated %}
     <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Accueil</a></li>
+        <li class="active"><a href="/cave/home/">Accueil</a></li>
+        <li><a href="/cave/stock/">Les références </a></li>
         <li><a href="/cave/mesCaves/">Mes caves</a></li>
         <li><a href="#">Mes bouteilles</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="/cave/stock/">Le stock</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
@@ -33,20 +33,9 @@
 
     {% else %}
     <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Accueil</a></li>
-        <li><a href="/cave/stock/">Le stock </a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu (non connecté) <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-            </ul>
-        </li>
+        <li class="active"><a href="/cave/home/">Accueil</a></li>
+        <li><a href="/cave/stock/">Les références </a></li>
+
     </ul>
 
 
@@ -82,8 +71,6 @@
 
 
 {% block content %}
-
-
     <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a
         mostly barebones HTML document.</p>
     </div>

@@ -50,6 +50,59 @@ class Cave(models.Model):
         occ = sum([b.occupe is True for b in self.mesCellules.select_related()])
         return  occ
 
+    # Retourne le % d'occupation de la cave
+    @property
+    def pourcentOcc(self):
+        a = self.emplacementOccupe * 100 /self.capacite
+        return  a
+
+    # Retourne le % libre de la cave
+    @property
+    def pourcentLibre(self):
+        a = self.emplacementLibre* 100 /self.capacite
+        return  a
+
+    #Retourne un dictionnaire
+    @property
+    def pourcentCouleur(self):
+        cellOcc=[b for b in self.mesCellules.select_related() if b.occupe is True]
+        listeCouleur=[b.maBouteille.refB.couleurB.nom for b in cellOcc]
+        listePourcent=dict((i,listeCouleur.count(i)/self.capacite*100) for i in listeCouleur)
+        return listePourcent
+
+    #Retourne le volume en Ml contenu dans la cave
+    @property
+    def volumeCave(self):
+        cellOcc=[b for b in self.mesCellules.select_related() if b.occupe is True]
+        a = sum([b.maBouteille.refB.typeB.ml for b in cellOcc])
+        return  a
+
+    #Retourne la valeur en Euros de la cave
+    @property
+    def valeurCave(self):
+        cellOcc=[b for b in self.mesCellules.select_related() if b.occupe is True]
+        listePrix = [b.maBouteille.prixB for b in cellOcc]
+        if listePrix:
+            a = {'min': min(listePrix), 'max': max(listePrix), 'total':sum(listePrix)}
+        else:
+            a = {'min': '-', 'max': '-', 'total':'-'}
+        return  a
+
+    #Retourne la valeur en Euros de la cave
+    @property
+    def anneeCave(self):
+        cellOcc=[b for b in self.mesCellules.select_related() if b.occupe is True]
+        listeAnnee = [b.maBouteille.refB.anneeB.annee.year for b in cellOcc]
+        if listeAnnee:
+            a = {'min': min(listeAnnee), 'max': max(listeAnnee)}
+        else:
+            a = {'min': '-', 'max': '-'}
+
+        return a
+
+
+
+
     def __str__(self):
         return '%s' %self.nom
 

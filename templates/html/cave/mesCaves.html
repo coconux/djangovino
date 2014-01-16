@@ -20,14 +20,42 @@
 
     </script>
 
-Vous avez {{ nbCave }} Cave
+    Vous avez {{ nbCave }} Cave
 
 
     {% for x in mesCaves %}
         <br/>
 
-        <span class="title ">{{ x.nom }}-- Capacite: {{ x.capacite }} -- Occupée: {{ x.emplacementOccupe }} -- Restant(s) :{{ x.emplacementLibre }} <a href="/cave/gererCave/{{ x.id }}">Gérer</a></span>
+        <span class="title ">{{ x.nom }}-- Capacite: {{ x.capacite }} --<br/>
+            Occupée ({{ x.pourcentOcc|floatformat}} %): {{ x.emplacementOccupe }} --<br/>
+            Restant(s) ({{ x.pourcentLibre|floatformat}} %) :{{ x.emplacementLibre }} <br/>
+            Volume {{ x.volumeCave}} ml  <br/>
+            Valeur {{ x.valeurCave.total}} Euros  <br/>
+            Valeur Min {{ x.valeurCave.min}} Euros  <br/>
+            Valeur Max {{ x.valeurCave.max}} Euros  <br/>
+            Annee min {{ x.anneeCave.min}}   <br/>
+            Annee Max {{ x.anneeCave.max}}   <br/>
 
+            <a href="/cave/gererCave/{{ x.id }}">Gérer</a></span>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-blanc" style="width: {{ x.pourcentCouleur.Blanc|stringformat:"f"}}%;">
+                <!--<span class="sr-only">20% Complete (warning)</span>-->
+                 {{ x.pourcentCouleur.Blanc|floatformat}} % de Blanc
+            </div>
+            <div class="progress-bar progress-bar-rose" style="width: {{ x.pourcentCouleur.Rosé|stringformat:"f"}}%">
+                {{ x.pourcentCouleur.Rosé|floatformat}} % de Rosé
+            </div>
+
+            <div class="progress-bar progress-bar-rouge" style="width: {{ x.pourcentCouleur.Rouge|stringformat:"f"}}%">
+                 {{ x.pourcentCouleur.Rouge|floatformat}} % de Rouge
+            </div>
+             <div class="progress-bar progress-bar-info" style="width: {{ x.pourcentLibre|stringformat:"f"}}%">
+                 Il reste encore {{ x.pourcentLibre|floatformat}} % à remplir
+            </div>
+
+
+        </div>
     {% endfor %}
 
     <br/>

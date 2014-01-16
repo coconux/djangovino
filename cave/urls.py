@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^voirCave/(?P<cave>\d+)/$', views.voirCave, name='voirCave'),
     url(r'^mesCaves/', views.mescaves, name='mescaves'),
     url(r'^gererCave/(?P<num>\d+)/$', views.gerercave, name='gerercave'),
+    #url(r'^addToStockFromRef/(?P<idRef>\d+)/$', views.addToStockFromRef, name='addToStockFromRef'),
+    url(r'^addToStockFromRef$', views.addToStockFromRef, name='addToStockFromRef'),
 
     url(r'^RefBouteilleList/$', views.RefBouteilleList.as_view()),
     url(r'^list/([\w-]+)/$', views.TousLesUtilisateurs.as_view()),

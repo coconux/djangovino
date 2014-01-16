@@ -2,11 +2,39 @@
 
 {% block containerStock %}
 
+    <script>
+    /* appel ajax pour ajouter nb bouteille dans le stock de l'utilisateur
+    Ceci appel al focntion rapide d'ajout, qui prend les vaeurs par defaut
+    */
+    function addToStockFromRef(idRef,nb){
+    tab_bouteille = Array()
+    tab_bouteille[0]={"idRef": idRef, "nb": nb};
+
+    $.ajax({
+        type: "POST",
+        url: "/cave/addToStockFromRef",
+        dataType: "json",
+        traditional: true,
+        data: {'list_bouteille': JSON.stringify(tab_bouteille)},
+        success: function(data) {
+            console.log(data["HTTPRESPONSE"]);
+        }
+});
+    //href="/cave/addToStockFromRef/{{ x.id }}"
+}
+    </script>
+
     {% for x in listeBouteille %}
         <br/>
         <img src="{{ x.imageB.url }}" width="40px" height="40px">
 
-        <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span>
+        <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span> <br/>
+        {% if user.is_authenticated %}
+
+        <a  onclick="addToStockFromRef({{ x.id }},1)"> Ajout rapide à mon stock </a> <br/>
+        <a  href="#"> Ajout détaillé dans mon stock </a>
+        {% endif %}
+    <br/>
 
     {% endfor %}
     <br/>
