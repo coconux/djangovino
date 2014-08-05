@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66171734-fba5-4ad3-be0d-511fdd3697cc" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/html/cave/gererCave.ok.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/html/cave/mesBouteillesEnCave.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/base.html" afterPath="$PROJECT_DIR$/templates/html/cave/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/static/bootstrap/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/home.html" afterPath="$PROJECT_DIR$/templates/html/cave/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/mesCaves.html" afterPath="$PROJECT_DIR$/templates/html/cave/mesCaves.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/cave/dnd.css" afterPath="$PROJECT_DIR$/static/css/cave/dnd.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/gererCave.html" afterPath="$PROJECT_DIR$/templates/html/cave/gererCave.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html" afterPath="$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cave/models.py" afterPath="$PROJECT_DIR$/cave/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/stock.html" afterPath="$PROJECT_DIR$/templates/html/cave/stock.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/html/cave/stockBase.html" afterPath="$PROJECT_DIR$/templates/html/cave/stockBase.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cave/urls.py" afterPath="$PROJECT_DIR$/cave/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cave/views.py" afterPath="$PROJECT_DIR$/cave/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -37,61 +37,27 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cave/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="68" selection-start="1163" selection-end="1176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mesCaves.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/html/cave/mesCaves.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="43" selection-start="835" selection-end="835" vertical-scroll-proportion="-7.5" vertical-offset="360" max-vertical-offset="1110">
+            <state line="15" column="35" selection-start="594" selection-end="618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
+                <element signature="e#0#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/bootstrap/css/bootstrap.css">
+      <file leaf-file-name="gererCave.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/gererCave.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5495" column="27" selection-start="94636" selection-end="94636" vertical-scroll-proportion="-11.192307" vertical-offset="82134" max-vertical-offset="106680">
+            <state line="489" column="47" selection-start="16699" selection-end="16699" vertical-scroll-proportion="-0.625" vertical-offset="7320" max-vertical-offset="8895">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stockBase.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/html/cave/stockBase.html">
+      <file leaf-file-name="mesBouteillesEnCave.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesEnCave.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="41" selection-start="1048" selection-end="1048" vertical-scroll-proportion="-20.0" vertical-offset="30" max-vertical-offset="1275">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stock.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/html/cave/stock.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="87" selection-end="122" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="960">
-              <folding>
-                <element signature="tag#div#0" expanded="false" />
-                <element signature="tag#div#1" expanded="false" />
-                <element signature="tag#div#2" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mesBouteillesBase.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1200">
+            <state line="26" column="80" selection-start="275" selection-end="299" vertical-scroll-proportion="-0.61165047" vertical-offset="705" max-vertical-offset="1395">
               <folding />
             </state>
           </provider>
@@ -100,7 +66,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cave/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="52" selection-start="3405" selection-end="3486" vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="7320">
+            <state line="284" column="26" selection-start="10621" selection-end="10621" vertical-scroll-proportion="0.0" vertical-offset="3931" max-vertical-offset="7965">
               <folding>
                 <element signature="e#24#35#0" expanded="true" />
               </folding>
@@ -108,10 +74,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cave/models.py">
+      <file leaf-file-name="mesBouteillesBase.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="58" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.554731" vertical-offset="976" max-vertical-offset="3945">
+            <state line="6" column="115" selection-start="175" selection-end="193" vertical-scroll-proportion="-1.2" vertical-offset="30" max-vertical-offset="1200">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mesBouteilles.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteilles.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="16" selection-start="1414" selection-end="1414" vertical-scroll-proportion="-17.24" vertical-offset="218" max-vertical-offset="1380">
+              <folding>
+                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gererCave.ok.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/gererCave.ok.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="195" column="32" selection-start="5196" selection-end="5248" vertical-scroll-proportion="30.625" vertical-offset="3660" max-vertical-offset="7125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/html/cave/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="67" selection-start="1931" selection-end="1937" vertical-scroll-proportion="18.04" vertical-offset="1592" max-vertical-offset="2145">
               <folding />
             </state>
           </provider>
@@ -126,10 +122,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/djangovino/urls.py">
+      <file leaf-file-name="dnd.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/cave/dnd.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="795">
+            <state line="53" column="0" selection-start="714" selection-end="714" vertical-scroll-proportion="-16.76923" vertical-offset="359" max-vertical-offset="885">
               <folding />
             </state>
           </provider>
@@ -158,22 +154,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/templates/html/cave/stockPage.html" />
-        <option value="$PROJECT_DIR$/templates/html/cave/tous_les_utilisateurs.html" />
-        <option value="$PROJECT_DIR$/static/js/cave/dnd2.js" />
-        <option value="$PROJECT_DIR$/templates/html/cave/gererCave.html" />
-        <option value="$PROJECT_DIR$/cave/urls.py" />
         <option value="$PROJECT_DIR$/templates/html/cave/voirCave.html" />
         <option value="$PROJECT_DIR$/templates/html/cave/mesBouteilles.html" />
-        <option value="$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html" />
         <option value="$PROJECT_DIR$/templates/html/cave/home.html" />
-        <option value="$PROJECT_DIR$/templates/html/cave/base.html" />
         <option value="$PROJECT_DIR$/templates/html/cave/stock.html" />
-        <option value="$PROJECT_DIR$/cave/views.py" />
         <option value="$PROJECT_DIR$/templates/html/cave/stockBase.html" />
         <option value="$PROJECT_DIR$/static/bootstrap/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/templates/html/cave/mesCaves.html" />
         <option value="$PROJECT_DIR$/cave/models.py" />
+        <option value="$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html" />
+        <option value="$PROJECT_DIR$/static/js/cave/dnd2.js" />
+        <option value="$PROJECT_DIR$/templates/html/cave/base.html" />
+        <option value="$PROJECT_DIR$/static/css/cave/dnd.css" />
+        <option value="$PROJECT_DIR$/templates/html/cave/gererCave.html" />
+        <option value="$PROJECT_DIR$/cave/urls.py" />
+        <option value="$PROJECT_DIR$/templates/html/cave/mesBouteillesEnCave.html" />
+        <option value="$PROJECT_DIR$/cave/views.py" />
       </list>
     </option>
   </component>
@@ -209,16 +205,13 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="djangovino" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -242,10 +235,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="registration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -457,7 +446,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -672,6 +660,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="djangovino.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -688,6 +677,8 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
     <list size="1">
@@ -740,19 +731,19 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2484127" sideWeight="0.67164177" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2484127" sideWeight="0.67164177" order="0" side_tool="true" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="101" y="122" width="1060" height="560" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32932332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -775,74 +766,51 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/static/bootstrap/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5495" column="27" selection-start="94636" selection-end="94636" vertical-scroll-proportion="-9.534323" vertical-offset="87564" max-vertical-offset="106680">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/js/cave/dnd2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/voirCave.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="332" column="3" selection-start="10113" selection-end="10503" vertical-scroll-proportion="-17.166666" vertical-offset="4568" max-vertical-offset="5670">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteilles.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="67" selection-end="67" vertical-scroll-proportion="-6.25" vertical-offset="30" max-vertical-offset="1380">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/gererCave.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="278" column="34" selection-start="8840" selection-end="8840" vertical-scroll-proportion="-14.041667" vertical-offset="3833" max-vertical-offset="6585">
+        <state line="12" column="37" selection-start="356" selection-end="356" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="1110">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/html/cave/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="19" selection-start="1886" selection-end="1886" vertical-scroll-proportion="-20.0" vertical-offset="600" max-vertical-offset="1515">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="3361" selection-end="3361" vertical-scroll-proportion="-13.958333" vertical-offset="1075" max-vertical-offset="2190">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1200">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/djangovino/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="795">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cave/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="68" selection-start="1163" selection-end="1176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+        <state line="54" column="87" selection-start="1445" selection-end="1520" vertical-scroll-proportion="-33.75" vertical-offset="0" max-vertical-offset="1515">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/html/cave/stock.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="87" selection-end="122" vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="990">
+        <state line="9" column="9" selection-start="132" selection-end="132" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="1230">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/stockBase.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="11" selection-start="11" selection-end="13" vertical-scroll-proportion="4.2" vertical-offset="240" max-vertical-offset="1275">
           <folding>
-            <element signature="tag#div#0" expanded="false" />
-            <element signature="tag#div#1" expanded="false" />
-            <element signature="tag#div#2" expanded="false" />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="/*...*/" />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="{&quot;type&quot;: &quot;POST&quot;...}" />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1389734205000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -854,44 +822,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/stockBase.html">
+    <entry file="file://$PROJECT_DIR$/static/css/cave/dnd.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="41" selection-start="1048" selection-end="1048" vertical-scroll-proportion="-20.0" vertical-offset="30" max-vertical-offset="1275">
+        <state line="53" column="0" selection-start="714" selection-end="714" vertical-scroll-proportion="-16.76923" vertical-offset="359" max-vertical-offset="885">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/bootstrap/css/bootstrap.css">
+    <entry file="file://$PROJECT_DIR$/static/bootstrap/js/bootstrap.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5495" column="27" selection-start="94636" selection-end="94636" vertical-scroll-proportion="-11.192307" vertical-offset="82134" max-vertical-offset="106680">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-13.079778" vertical-offset="7050" max-vertical-offset="30120">
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/gererCave.ok.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="195" column="32" selection-start="5196" selection-end="5248" vertical-scroll-proportion="30.625" vertical-offset="3660" max-vertical-offset="7125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="67" selection-start="1931" selection-end="1937" vertical-scroll-proportion="18.04" vertical-offset="1592" max-vertical-offset="2145">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteilles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="16" selection-start="1414" selection-end="1414" vertical-scroll-proportion="-17.24" vertical-offset="218" max-vertical-offset="1380">
+          <folding>
+            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cave/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="35" selection-start="594" selection-end="618" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/gererCave.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="489" column="47" selection-start="16699" selection-end="16699" vertical-scroll-proportion="-0.625" vertical-offset="7320" max-vertical-offset="8895">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cave/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="52" selection-start="3405" selection-end="3486" vertical-scroll-proportion="0.0" vertical-offset="1320" max-vertical-offset="7320">
+        <state line="284" column="26" selection-start="10621" selection-end="10621" vertical-scroll-proportion="0.0" vertical-offset="3901" max-vertical-offset="7965">
           <folding>
             <element signature="e#24#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesCaves.html">
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesBase.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="43" selection-start="835" selection-end="835" vertical-scroll-proportion="-7.5" vertical-offset="360" max-vertical-offset="1110">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="6" column="115" selection-start="175" selection-end="193" vertical-scroll-proportion="-1.2" vertical-offset="30" max-vertical-offset="1200">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cave/models.py">
+    <entry file="file://$PROJECT_DIR$/templates/html/cave/mesBouteillesEnCave.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="58" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.554731" vertical-offset="976" max-vertical-offset="3945">
+        <state line="26" column="80" selection-start="275" selection-end="299" vertical-scroll-proportion="-0.61165047" vertical-offset="705" max-vertical-offset="1395">
           <folding />
         </state>
       </provider>

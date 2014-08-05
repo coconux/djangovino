@@ -29,7 +29,7 @@
 			width:100px;
 		}
 		.right td.over{
-			background:#FBEC88;
+			background:blue;
 		}
 		.item{
 			text-align:center;
@@ -40,3 +40,14 @@
 		.assigned{
 			border:1px solid #BC2A4D;
 		}
+
+
+.red{
+    background-color: red;
+}
+.pink{
+    background-color: hotpink;
+}
+.white{
+    background-color: ghostwhite;
+}

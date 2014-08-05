@@ -160,6 +160,12 @@ class RefBouteille(models.Model):
     def __str__(self):
         return '%s' %self.nomB
 
+    # Retourne un motif concatenant les infos pour la recherche sur plusieurs champs
+    @property
+    def motif(self):
+
+        return str(self.anneeB.nom)+' '+str(self.nomB)+' '+str(self.typeB.nom)
+
 
 
 class Bouteille(models.Model):

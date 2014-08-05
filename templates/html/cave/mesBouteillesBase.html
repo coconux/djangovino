@@ -4,7 +4,7 @@
 
     {% for x in listeBouteille %}
         <br/>
-        <div class="bouteille" id="bouteille_{{ x.id }} " id_bouteille="{{ x.id }}">
+        <div class="bouteille" id="bouteille_{{ x.id }} " id_bouteille="{{ x.id }}" id_color="{{ x.refB.couleurB.id }}" >
         <img src="{{ x.refB.imageB.url }}" width="40px" height="40px">
 
         <span class="title ">{{ x.refB.nomB }} </span>

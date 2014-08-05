@@ -99,7 +99,7 @@ def gerercave(request,num):
     bouteilles = Bouteille.objects.filter( Q(celluleB__cave_id=num))
 
     # a modifier
-    cellOcc=[b for b in maCave.mesCellules.select_related() if b.occupe is True]
+    #cellOcc=[b for b in maCave.mesCellules.select_related() if b.occupe is True]
 
 
 
@@ -109,7 +109,7 @@ def gerercave(request,num):
         'cave':maCave,
         'lignes':range(maCave.lignes),
         'colonnes':range(maCave.colonnes),
-        'cellules':cellOcc,
+        #'cellules':cellOcc,
 
     }
 
@@ -220,7 +220,7 @@ def searchBouteillesAjax(request):
         #if criteria is not None:
         if True:
             #listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria),user=user )
-            listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria),user=user )
+            listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria) ,user=user )
 
 
             #les ref bouteilles
@@ -249,6 +249,47 @@ def searchBouteillesAjax(request):
                 context_instance = RequestContext(request))
     else:
             raise Http404
+@login_required
+def searchBouteillesCaveAjax(request):
+    if request.is_ajax():
+        criteria = request.GET.get('criteria2')
+        caveId = request.GET.get('caveId')
+        user = request.user
+
+        if criteria is None:
+            criteria =""
+        #if criteria is not None:
+        if True:
+            #listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria),user=user )
+            listeBouteille = Bouteille.objects.filter( Q(celluleB__cave=caveId) & Q(refB__nomB__icontains=criteria) ,user=user )
+
+
+            #les ref bouteilles
+            #listeBouteille = RefBouteille.objects.filter(maReference__user=user).annotate(num=Count('maReference'))
+            #listeBouteille = Bouteille.objects.all()
+
+            nbBouteille = listeBouteille.count()
+            paginator = Paginator(listeBouteille, 2) # Show 3 contacts per page
+            page2 = request.GET.get('page2')
+            try:
+                listeBouteille = paginator.page(page2)
+            except PageNotAnInteger:
+                # If page is not an integer, deliver first page.
+                listeBouteille = paginator.page(1)
+            except EmptyPage:
+                # If page is out of range (e.g. 9999), deliver last page of results.
+                listeBouteille = paginator.page(paginator.num_pages)
+
+            template = 'html/cave/mesBouteillesBase.html'
+            data = {
+                'criteria2':criteria,
+                'listeBouteille':listeBouteille,
+                'nbBouteille':nbBouteille,
+            }
+            return render_to_response(template, data,
+                context_instance = RequestContext(request))
+    else:
+            raise Http404
 
 #@login_required
 def searchStockAjax(request):
@@ -261,7 +302,9 @@ def searchStockAjax(request):
             criteria =""
         #if criteria is not None:
         if True:
-            listeBouteille = RefBouteille.objects.filter( Q(nomB__icontains=criteria) )
+
+            # debut de filtrage sur annee, verifier icontains
+            listeBouteille = RefBouteille.objects.filter( Q(nomB__icontains=criteria) | Q(anneeB__nom__icontains=criteria) )
             nbBouteille = listeBouteille.count()
             paginator = Paginator(listeBouteille, 2) # Show 3 contacts per page
             page = request.GET.get('page')

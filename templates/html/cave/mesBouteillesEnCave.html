@@ -1,0 +1,87 @@
+
+
+{% block title %}Stock{% endblock %}
+
+
+
+
+
+
+
+
+{% block content %}
+
+
+
+
+
+{% endblock %}
+
+{% block container %}
+
+    <script>
+
+        function submit_ajax2(caveId,page2) {
+            criteria2 = $('#criteria2').val();
+
+            $('#ajaxBlock2').html('&nbsp;').load('/cave/searchBouteillesCaveAjax?criteria2=' + criteria2 + '&caveId=' + caveId+ '&page2=' + page2);
+        }
+
+        $(document).ready(function () {
+            caveId=10
+
+            submit_ajax2(caveId);
+
+
+            $('#criteria2').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    submit_ajax2(caveId);
+                    return false;
+                }
+            });
+        });
+
+    $(document).ajaxStart(function() {
+	$('#spinner2').show();
+}).ajaxStop(function() {
+	$('#spinner2').hide();
+});
+
+    </script>
+
+
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade in active" id="recherche2">
+            <div class="navbar-form navbar-left ">
+
+                <div class="form-group">
+                    <input id="criteria2" name="criteria2" type="text" class="form-control" placeholder="Search"
+                           value="{{ criteria }}">
+                </div>
+                <button id="searchSubmit2" onclick="submit_ajax2()" type="button" class="btn btn-default"> GlouGlou
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="clear:left;display:none" id="spinner2">
+    *** chargement ***
+    </div>
+
+    <div style="clear:left" id="ajaxBlock2">
+
+    </div>
+
+
+
+
+    ---------------------------
+
+
+
+
+
+{% endblock %}

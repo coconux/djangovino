@@ -123,158 +123,112 @@
 
     }
 
-
-function reinitColor(mondiv){
-
-     //$(mondiv).addClass('DTC');
-     //$(mondiv).removeClass('colorCase-1');
-
-      classColor = $(mondiv).attr("class");
-      classColor = $(mondiv).attr("class").match (/colorCase-\S+/g || []).join(' ');
-
-      //alert(classColor);
-      $(mondiv).removeClass(classColor);
-}
-
     function colorCase(td,c){
-        id_color=c.attr('id_color');
-        //alert(id_color);
-        switch(id_color) {
-                        case "1":
-                            $(td).addClass('colorCase-pink');
-                            //$(td).css("background-color","red");
 
+        switch(c.attr('id_color')) {
+                        case "1":
+                            $(td).addClass("red");
+                            $(td).css("background-color","red");
                             break;
                         case "2":
-                            $(td).addClass("colorCase-red");
-                            //$(td).css("background-color","hotpink");
+                            $(td).addClass("pink");
+                            $(td).css("background-color","hotpink");
 
                             break;
                         case "3":
-                            $(td).addClass("colorCase-white");
-                            //$(td).css("background-color","lightgoldenrodyellow");
+                            $(td).addClass("grey");
+                            $(td).css("background-color","ghostwhite");
 
                             break;
                         default:
-                            //$(td).addClass("blue");
-                            //$(td).css("background-color","");
+                            $(td).addClass("blue");
+                            $(td).css("background-color","blue");
 
                     }
     }
-
-
     $(function () {
-         // Rend les bouteilles du stock draggable
+
+        $('.maCave div.bouteille').droppable({
+            onDragEnter: function () {
+                $(this).addClass('over');
+            },
+            onDragLeave: function () {
+                $(this).removeClass('over');
+            },
+
+            onDrop: function (e, source) {
+
+                // on glisse vers le contour de la cave --> remise en stock
+                id_cave = $(this).parents("table").attr("id_cave")
+                id2 = ($(source).attr("id"));
+                nom2 = ($(source).html());
+
+                //on libere la bouteille
+                ajaxLibereBouteille(id_cave, nom2, id2);
+                notifyStockByCave()
+
+
+            }
+
+        });
+
         $('.monStock div.bouteille').draggable({
             revert: true,
             proxy: 'clone'
         });
 
-// le contour de la cave est droppable pour sortir une bouteille
+// En tete du tableau droppable pour sortir une bouteille
         $(".outCave").droppable({
-            //Quand un element survole la zone
             onDragEnter: function () {
-                //$(this).addClass('over');
-                //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-                $(this).css("background-color","green");
-
+                $(this).addClass('over');
+                $(this).css("background-color","red");
             },
-            //Quand on relache un element dans cette zone
             onDragLeave: function () {
-                // Lorsqu'on sort de la zone sans lacher. On enleve la class
-                //$(this).removeClass('over');
-                //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-
-                $(this).css("background-color","");
+                $(this).removeClass('over');
+                 $(this).css("background-color","");
 
             },
-            //Lorsque l'element est lache. source est la div de la bouteille
-            //source: le div bouteille qu'on deplace
-            //this: le contour ou on lache
             onDrop: function (e, source) {
                 // on glisse vers le contour de la cave --> remise en stock
-                //On recupere l'id de la cave
-
-                //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-                $(this).css("background-color","");
-
                 id_cave = $(this).parents("table").attr("id_cave")
                 id_bouteille = ($(source).attr("id_bouteille"));
                 nom_bouteille = ($(source).html());
+                $(this).css("background-color","");
 
-                //On enleve la class ajoute lors du drageEnter
-                //$(this).removeClass('over');
-
-                //On enleve la couleur de du td ou ete la bouteille
-                //$(source).parent().css("background-color","");
-                //on vide le td ou ete la bouteille
-                //On enleve la class colorCase du td contenant la bouteille qu'on vient de deplacer
-                reinitColor($(source).parent());
                 $(source).parent().empty();
 
 
-                //on libere la bouteille en base
+                //on libere la bouteille
                 ajaxLibereBouteille(id_cave, nom_bouteille, id_bouteille);
-                // On notifie
                 notifyStockByCave();
-                // On rafraichit le stock
+
                 rafraichirStock();
             }
         })
 
-        // Pour tous les emplacements de la cave
         $('.cave td.drop').droppable({
-
-            //Lorsqu'on glisse un element sur un emplacement de la cave
-            onDragEnter: function (e,source) {
-                //alert("neter")
-                //$(this).addClass('over');
-                //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-                $(this).css("background-color","green");
-
-
+            onDragEnter: function () {
+                $(this).addClass('over');
             },
-            //Lorsqu'on sort l'element d'un emplacement de la cave
-            onDragLeave: function (e,source) {
-                //alert("leave")
-                //$(this).removeClass('over');
-
-                //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-                $(this).css("background-color","");
-                //colorCase($(this),$(source));
-
+            onDragLeave: function () {
+                $(this).removeClass('over');
             },
-            onDragOver: function (e,source) {
-                //alert("over")
-                //couleurOrigine=($(source).parent().css("background-color"));
-                //$(this).css("background-color",couleurOrigine);
-                //colorCase($(this),$(source));
-            },
-            //Lorsqu'on lache un element dans la cave
-            //this: est l'emplacement ou on drop
-            //source: la div (bouteille) qui se place dans le td
             onDrop: function (e, source) {
-                //alert("drop")
-               // $(this).removeClass('over');
-               //$(this).css("background-color","grey");
-
-               //On ajoute le css via la balise style ainsi il devient prioritaire sur les autres CSS
-               $(this).css("background-color","");
-
-
-
+                $(this).removeClass('over');
+                //this est le td ou on drop
+                // source et la div qui se place dans le td
 
                 // Si la bouteille que l'on deplace était deja en cave
                 if ($(source).hasClass('assigned')) {
-                    // Si on deplace la bouteille sur un emplacement non libre (on remplace une bouteille)
+                    // Si le td a deja un div (deja une bouteille)
                     if ($(this).children("div").data() != null) {
+                        alert("1");
                         id_cave = $(this).parents("table").attr("id_cave");
+
                         //bouteille a remettre en stock
-                        // On recupere les informations surla bouteille que l'on remplace
-                        //pour la remettre en stock
                         x = ($(this).attr("x"));
                         y = ($(this).attr("y"));
-                        //On prend l'id de la bouteille en cave que l'on remplace (this)
+                        //On prend l'id de la bouteille en cave (this)
                         id_bouteille_a_stocker = ($(this).children("div").attr("id_bouteille"));
                         nom_bouteille_a_stocker = ($(this).children("div").html())
 
@@ -282,51 +236,31 @@ function reinitColor(mondiv){
                         id_bouteille_a_placer = ($(source).attr("id_bouteille"));
                         nom_bouteille_a_placer = ($(source).html());
 
-
-                        //Bug si on clique sur une bouteille et on relache le clic.
-                        // donc si on drop sur la meme bouteille on ignore
-                        //Cela evite une mise a jour de la bdd inutile
-                        if(id_bouteille_a_stocker == id_bouteille_a_placer){
-
-                            return null;
-                        }
-
-                        reinitColor($(source).parent());
-                        //Il faut egalement enlever la couleur de l'emplacement qu'on va utiliser (si on remplace du blanc par du rouge)
-                        reinitColor($(this));
-                        //on ajoute la classe colorCase en fonction de la couleur de la bouteille
-                        colorCase($(this),$(source));
-
                         //on libere la bouteille ou on drop
                         ajaxLibereBouteille(id_cave, nom_bouteille_a_stocker, id_bouteille_a_stocker);
                         //on place la bouteille
+                        //alert(id_cave+nom_bouteille_a_placer+id_bouteille_a_placer+x+y)
                         ajaxPlaceByCave(id_cave, nom_bouteille_a_placer, id_bouteille_a_placer, x, y);
-                        //On notifie
+
                         notifyReplaceByCave();
 
                     }
 
-                    //On deplace une bouteille en cave sur un emplacement libre
-                        //this: est l'emplacement td ou on drop
-                        //source: la div (bouteille) source qui se place dans le td
+                    // SI le td est libre
                     else {
-                        //On recupere les positions pour la notification
+                        alert("2");
+
                         x = ($(this).attr("x"));
                         y = ($(this).attr("y"));
-                        //Information sur la bouteille
                         id_bouteille = ($(source).attr("id_bouteille"));
                         nom_bouteille = ($(source).html());
-                        //Identifiant de la cave
                         id_cave = $(this).parents("table").attr("id_cave");
 
-
-                        //On enleve la class ajoute lors du drageEnter
-                        //$(this).removeClass('over');
-
-                        //on ajoute la classe colorCase en fonction de la couleur de la bouteille
+                        ancienneCase=$('.cave div[id_bouteille="'+id_bouteille_stock+'"]').parent();
+                        alert(ancienneCase);
                         colorCase($(this),$(source));
-                        //On enleve la class colorCase du td contenant la bouteille qu'on vient de deplacer
-                        reinitColor($(source).parent());
+                        //reinitCase()
+                        //$('.cave div[id_bouteille="'+id_bouteille_stock+'"]').parent().empty()
 
                         ajaxPlaceByCave(id_cave, nom_bouteille, id_bouteille, x, y);
 
@@ -334,38 +268,25 @@ function reinitColor(mondiv){
                         rafraichirStock();
 
                     }
-                    //On ajoute la div bouteille dans sa nouvelle case
                     $(this).empty().append(source);
-
-
                 }
 
                 // si la bouteille est dans le stock
                 else {
-                    //alert("3");
+                    alert("3");
                     // ajoute au div la class assigned
                     var c = $(source).clone().addClass('assigned');
                     id_bouteille_stock = c.attr("id_bouteille");
 
                     // Si la bouteille que l'on place vient du stock et qu'elle etait deja dans cette cave
                     // il faut la retirer de la cave
-                    bouteilleEnCaveObj = $('.cave div[id_bouteille="'+id_bouteille_stock+'"]');
-
-                    //if(bouteilleEnCave != undefined)
-                    if(bouteilleEnCaveObj.length > 0)
-                    {
-                        //On enleve la class colorCase du td contenant la bouteille qu'on vient de deplacer
-                        reinitColor($(bouteilleEnCaveObj).parent());
-                        //On vide le td contenant la bouteilleEnCave
-                        bouteilleEnCaveObj.parent().empty();
-
-                    }
+                    bb=$('.cave div[id_bouteille="'+id_bouteille_stock+'"]').parent().empty()
 
                     // Si le td a deja une div (deja une bouteille)
                     if ($(this).children("div").data() != null) {
-                        //alert("remplacement par stock")
+                        alert("4");
 
-                        id_cave = $(this).parents("table").attr("id_cave");
+                        id_cave = $(this).parents("table").attr("id_cave")
 
                         // la bouteille en stock a placer dans la cave
                         id_bouteille_stock = c.attr("id_bouteille");
@@ -378,9 +299,6 @@ function reinitColor(mondiv){
                         id_bouteille = ($(this).children("div").attr("id_bouteille"));
                         nom_bouteille = ($(this).children("div").html())
 
-                        //on ajoute la classe colorCase en fonction de la couleur de la bouteille
-                        colorCase($(this),$(source));
-
                         //on libere la bouteille ou on drop
                         ajaxLibereBouteille(id_cave, nom_bouteille, id_bouteille);
                         //on place la bouteille
@@ -392,7 +310,7 @@ function reinitColor(mondiv){
                     }
                     // Si le td est libre
                     else {
-                        //alert("5");
+                        alert("5");
 
                         x = ($(this).attr("x"));
                         y = ($(this).attr("y"));
@@ -400,8 +318,6 @@ function reinitColor(mondiv){
                         id_bouteille = c.attr("id_bouteille");
                         nom = c.html();
                         id_cave = $(this).parents("table").attr("id_cave");
-                        //on ajoute la classe colorCase en fonction de la couleur de la bouteille
-                        colorCase($(this),$(source));
 
                         //alert("ici"+x+y+nom+id_cave)
                         ajaxPlaceByStock(id_cave, nom, id_bouteille, x, y);
@@ -409,6 +325,13 @@ function reinitColor(mondiv){
                         rafraichirStock();
 
                     }
+                    /*$(this).empty().css("background-color","red")
+                    c.draggable({
+                        revert: true
+                    });*/
+                    // il faudrait vider l'interieur du div pour enlever texte et image puis mettre le background
+
+                    colorCase($(this),c);
 
                     // on ajoute un texte vide dans la cellule
                     c.html("<span class='bouteille'><br/></span>");
@@ -418,7 +341,8 @@ function reinitColor(mondiv){
                         revert: true
                     });
 
-
+                    // Si la bouteille que l'on place vient du stock et qu'elle etait deja dans cette cave
+                    // il faut la retirer
 
                 }
             }
@@ -432,7 +356,6 @@ function reinitColor(mondiv){
     <style>
 
         .cave {
-        float:left;
         }
 
         .cave tr {
@@ -447,9 +370,6 @@ function reinitColor(mondiv){
         }
 
         .monStock {
-            float: left;
-        }
-        .bouteillesEnCave {
             float: left;
         }
 
@@ -467,19 +387,8 @@ function reinitColor(mondiv){
             text-align: center;
 
         }
-    .over{
-        background-color: blue;
-    }
-    .colorCase-red{
-        background-color: red;
-    }
 
-    .colorCase-pink{
-        background-color: hotpink;
-    }
-   .colorCase-white{
-        background-color: lightgoldenrodyellow;
-    }
+
     </style>
 
     Gestion de la cave {{ cave.nom }}
@@ -513,31 +422,15 @@ function reinitColor(mondiv){
                     {% for cel in cave.mesCellules.select_related %}
 
                         {% if cel.occupe %}
-                            <td x="{{ cel.x }}" y="{{ cel.y }}"
-                                    {% if cel.maBouteille.refB.couleurB.id == 1 %}
-                                     class=' drop colorCase-pink'
-
-                                     {% elif cel.maBouteille.refB.couleurB.id == 2 %}
-                                     class=' drop colorCase-red'
-
-
-
-                                     {% elif cel.maBouteille.refB.couleurB.id == 3 %}
-                                     class='drop colorCase-white'
-
-
-                                     {% endif %}
-                                    >
+                            <td x="{{ cel.x }}" y="{{ cel.y }}" class="drop">
 
                                 <div id_bouteille="{{ cel.maBouteille.pk }}" class="bouteille assigned"
-                                     id="bouteille_{{ cel.maBouteille.pk }}"
-                                        id_color="{{ cel.maBouteille.refB.couleurB.id }}">
-                                    <span> <br/> </span>
-{#                                    <span> {{ cel.maBouteille }} </span>#}
-{#                                    <img src="{{ cel.maBouteille.refB.imageB.url }}" width="40px" height="40px">#}
+                                     id="bouteille_{{ cel.maBouteille.pk }}">
+                                    <span> {{ cel.maBouteille }} </span>
+                                    <img src="{{ cel.maBouteille.refB.imageB.url }}" width="40px" height="40px">
                                 </div>
                                 {% else %}
-                            <td x="{{ cel.x }}" y="{{ cel.y }}" class="drop" >
+                            <td x="{{ cel.x }}" y="{{ cel.y }}" class="drop" ">
 
 
                         {% endif %}
@@ -567,17 +460,6 @@ function reinitColor(mondiv){
         {% endblock %}
 
     </div>
-
-
-
-
-    <div class="bouteillesEnCave">
-
-        {% block bouteillesEnCave %}
-            {% include "html/cave/mesBouteillesEnCave.html" %}
-        {% endblock %}
-    </div>
-
 
     <script>
 
