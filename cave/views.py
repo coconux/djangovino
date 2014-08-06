@@ -210,9 +210,9 @@ def searchStockAjaxPost(request):
 """
 
 @login_required
-def searchBouteillesAjax(request):
+def searchBouteillesBaseAjax(request):
     if request.is_ajax():
-        criteria = request.GET.get('criteria')
+        criteria = request.GET.get('criteriaBouteilleEnBase')
         user = request.user
 
         if criteria is None:
@@ -228,8 +228,8 @@ def searchBouteillesAjax(request):
             #listeBouteille = Bouteille.objects.all()
 
             nbBouteille = listeBouteille.count()
-            paginator = Paginator(listeBouteille, 2) # Show 3 contacts per page
-            page = request.GET.get('page')
+            paginator = Paginator(listeBouteille, 10) # Show 3 contacts per page
+            page = request.GET.get('pageBouteilleEnBase')
             try:
                 listeBouteille = paginator.page(page)
             except PageNotAnInteger:
@@ -239,9 +239,9 @@ def searchBouteillesAjax(request):
                 # If page is out of range (e.g. 9999), deliver last page of results.
                 listeBouteille = paginator.page(paginator.num_pages)
 
-            template = 'html/cave/mesBouteillesBase.html'
+            template = 'html/cave/mesBouteillesEnBaseResultat.html'
             data = {
-                'criteria':criteria,
+                'criteriaBouteilleEnBase':criteria,
                 'listeBouteille':listeBouteille,
                 'nbBouteille':nbBouteille,
             }
@@ -252,7 +252,7 @@ def searchBouteillesAjax(request):
 @login_required
 def searchBouteillesCaveAjax(request):
     if request.is_ajax():
-        criteria = request.GET.get('criteria2')
+        criteria = request.GET.get('criteriaBouteilleEnCave')
         caveId = request.GET.get('caveId')
         user = request.user
 
@@ -269,10 +269,10 @@ def searchBouteillesCaveAjax(request):
             #listeBouteille = Bouteille.objects.all()
 
             nbBouteille = listeBouteille.count()
-            paginator = Paginator(listeBouteille, 2) # Show 3 contacts per page
-            page2 = request.GET.get('page2')
+            paginator = Paginator(listeBouteille, 10) # Show 3 contacts per page
+            page = request.GET.get('pageBouteilleEnCave')
             try:
-                listeBouteille = paginator.page(page2)
+                listeBouteille = paginator.page(page)
             except PageNotAnInteger:
                 # If page is not an integer, deliver first page.
                 listeBouteille = paginator.page(1)
@@ -280,11 +280,12 @@ def searchBouteillesCaveAjax(request):
                 # If page is out of range (e.g. 9999), deliver last page of results.
                 listeBouteille = paginator.page(paginator.num_pages)
 
-            template = 'html/cave/mesBouteillesBase.html'
+            template = 'html/cave/mesBouteillesEnCaveResultat.html'
             data = {
-                'criteria2':criteria,
+                'criteriaBouteilleEnCave':criteria,
                 'listeBouteille':listeBouteille,
                 'nbBouteille':nbBouteille,
+                'caveId':caveId,
             }
             return render_to_response(template, data,
                 context_instance = RequestContext(request))

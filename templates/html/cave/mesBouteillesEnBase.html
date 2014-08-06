@@ -1,0 +1,74 @@
+
+
+
+{% block container %}
+
+    <script>
+
+
+
+
+        function searchBouteilleEnBase(pageBouteilleEnBase) {
+            criteriaBouteilleEnBase = $('#criteriaBouteilleEnBase').val();
+
+            $('#ajaxBlockBouteilleEnBase').html('&nbsp;').load('/cave/searchBouteillesBaseAjax?criteriaBouteilleEnBase=' + criteriaBouteilleEnBase+ '&pageBouteilleEnBase=' + pageBouteilleEnBase);
+        }
+
+        $(document).ready(function () {
+
+
+            searchBouteilleEnBase();
+
+
+            $('#criteriaBouteilleEnBase').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    searchBouteilleEnBase(caveId);
+                    return false;
+                }
+            });
+        });
+
+    $('#ajaxBlockBouteilleEnBase').ajaxStart(function() {
+	$('#spinnerBouteilleEnBase').show();
+}).ajaxStop(function() {
+	$('#spinnerBouteilleEnBase').hide();
+});
+
+    </script>
+
+
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade in active" id="rechercheBouteilleEnBase">
+            <div class="navbar-form navbar-left ">
+
+                <div class="form-group">
+                    <input id="criteriaBouteilleEnBase" name="criteriaBouteilleEnBase" type="text" class="form-control" placeholder="Search"
+                           value="{{ criteriaBouteilleEnBase }}">
+                </div>
+                <button id="searchSubmitBouteilleEnBase" onclick="searchBouteilleEnBase()" type="button" class="btn btn-default"> GlouGlou
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div style="clear:left;display:none" id="spinnerBouteilleEnBase">
+    *** chargement ***
+    </div>
+
+    <div style="clear:left" id="ajaxBlockBouteilleEnBase">
+
+    </div>
+
+
+
+
+    ---------------------------
+
+
+
+
+
+{% endblock %}

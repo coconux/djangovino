@@ -26,7 +26,7 @@
 
             {% if listeBouteille.has_previous %}
                 <li class=""><a id="previousPage" href="#"
-                                onclick="submit_ajax({{ listeBouteille.previous_page_number }})">&larr;
+                                onclick="searchBouteilleEnBase({{ listeBouteille.previous_page_number }})">&larr;
                     Previous</a>
                 </li>
 
@@ -37,13 +37,13 @@
             {% endif %}
 
 
-            <span class="current" id="id_page_stock" value="{{ listeBouteille.number }}">
+            <span class="current" id="id_page_bouteille_base" value="{{ listeBouteille.number }}">
             Page {{ listeBouteille.number }} of {{ listeBouteille.paginator.num_pages }}.
         </span>
 
             {% if listeBouteille.has_next %}
                 <li class=""><a id="nextPage" href="#"
-                                onclick="submit_ajax({{ listeBouteille.next_page_number }})">Next &rarr;</a></li>
+                                onclick="searchBouteilleEnBase({{ listeBouteille.next_page_number }})">Next &rarr;</a></li>
             {% else %}
                 <li class=" disabled"><a>Next &rarr;</a></li>
 
@@ -55,6 +55,35 @@
     </div>
 
 <script>
+$( "div.bouteille" )
+  .mouseenter(function() {
+//alert("on");
+        //$( this ).find( "span" ).text( "mouse enter x " + n );
+        x=($( this ).attr("x"));
+        y=($( this ).attr("y"));
+        id=($( this ).attr("id"));
+
+        bouteilleEnCave = $('.cave div[id='+id+']').parent('td');
+        //$(bouteilleEnCave).animate({padding:"+=10px"});
+        $(bouteilleEnCave).css("opacity","0.2");
+
+
+  })
+  .mouseleave(function() {
+         //   alert("off");
+         //$( this ).find( "span" ).text( "mouse enter x " + n );
+        x=($( this ).attr("x"));
+        y=($( this ).attr("y"));
+        id=($( this ).attr("id"));
+
+        bouteilleEnCave = $('.cave div[id='+id+']').parent('td');
+        $(bouteilleEnCave).css("opacity","1");
+
+        //$(bouteilleEnCave).animate({padding:"-=10px"});
+
+
+  });
+
 
 $('.monStock div.bouteille').draggable({
 				revert:true,

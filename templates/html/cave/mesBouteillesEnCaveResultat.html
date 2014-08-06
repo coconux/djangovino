@@ -1,0 +1,108 @@
+
+
+{% block containerStock %}
+
+    {% for x in listeBouteille %}
+        <br/>
+        <div class="tooltips-red bouteille" id="bouteille_{{ x.id }} " id_bouteille="{{ x.id }}" id_color="{{ x.refB.couleurB.id }}"
+                x="{{ x.celluleB.x }}" y="{{ x.celluleB.y }}"
+                >
+        <img src="{{ x.refB.imageB.url }}" width="40px" height="40px">
+        <span class="title ">{{ x.refB.nomB }} placée en ligne:{{ x.celluleB.x }}, colonne: {{ x.celluleB.y }}  </span>
+        </div>
+                {% if  x.celluleB.occupe  %}
+
+                 <a href="/cave/gererCave/{{ x.celluleB.cave_id }}"> {{ x.celluleB.cave.nom }} </a>
+
+        {% endif %}
+    {% endfor %}
+    <br/>
+
+    <div class="pagination">
+    <span class="step-links">
+        <ul class="pager">
+
+            {% if listeBouteille.has_previous %}
+                <li class=""><a id="previousPage" href="#"
+                                onclick="searchBouteilleEnCave({{ caveId }},{{ listeBouteille.previous_page_number }})">&larr;
+                    Previous</a>
+                </li>
+
+
+            {% else %}
+                <li class=" disabled"><a> &larr; Previous</a></li>
+
+            {% endif %}
+
+
+            <span class="current" id="id_page_bouteille_cave" value="{{ listeBouteille.number }}">
+            Page {{ listeBouteille.number }} of {{ listeBouteille.paginator.num_pages }}.
+        </span>
+
+            {% if listeBouteille.has_next %}
+                <li class=""><a id="nextPage" href="#"
+                                onclick="searchBouteilleEnCave({{ caveId }}, {{ listeBouteille.next_page_number }})">Next &rarr;</a></li>
+            {% else %}
+                <li class=" disabled"><a>Next &rarr;</a></li>
+
+            {% endif %}
+
+        </ul>
+    </span>
+
+    </div>
+
+<script>
+
+
+$( "div.bouteille" )
+  .mouseenter(function() {
+//alert("on");
+        //$( this ).find( "span" ).text( "mouse enter x " + n );
+        x=($( this ).attr("x"));
+        y=($( this ).attr("y"));
+        id=($( this ).attr("id"));
+
+        bouteilleEnCave = $('.cave div[id='+id+']').parent('td');
+        //$(bouteilleEnCave).animate({padding:"+=10px"});
+                  //  $(bouteilleEnCave).html( "X" );
+
+        $(bouteilleEnCave).css("opacity","0.2");
+
+
+  })
+  .mouseleave(function() {
+          //  alert("off");
+         //$( this ).find( "span" ).text( "mouse enter x " + n );
+        x=($( this ).attr("x"));
+        y=($( this ).attr("y"));
+        id=($( this ).attr("id"));
+
+        bouteilleEnCave = $('.cave div[id='+id+']').parent('td');
+        $(bouteilleEnCave).css("opacity","1");
+        //$(bouteilleEnCave).text("");
+
+
+        //$(bouteilleEnCave).animate({padding:"-=10px"});
+
+
+  });
+
+
+
+$('.monStock div.bouteille').draggable({
+				revert:true,
+				proxy:'clone'
+			});
+
+
+$('.cave div.bouteille').draggable({
+				revert:true,
+				proxy:'clone'
+			});
+
+
+</script>
+
+{% endblock %}
+

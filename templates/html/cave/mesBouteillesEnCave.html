@@ -1,50 +1,79 @@
 
 
-{% block title %}Stock{% endblock %}
-
-
-
-
-
-
-
-
-{% block content %}
-
-
-
-
-
-{% endblock %}
 
 {% block container %}
 
+    <style>
+
+div.tooltips-red {
+  position: relative;
+  display: inline;
+}
+div.tooltips-red span {
+  position: absolute;
+  width:200px;
+  color: #FFFFFF;
+  background: #FF0F0F;
+  height: 80px;
+  line-height: 41px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 13px;
+  box-shadow: 10px 8px 8px #DE1D5D;
+}
+div.tooltips-red span:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -8px;
+  width: 0; height: 0;
+  border-right: 8px solid #FF0F0F;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+div:hover.tooltips-red span {
+  visibility: visible;
+  opacity: 1;
+  left: 100%;
+  top: 50%;
+  margin-top: -20.5px;
+  margin-left: 15px;
+  z-index: 999;
+}
+
+    </style>
+
     <script>
 
-        function submit_ajax2(caveId,page2) {
-            criteria2 = $('#criteria2').val();
 
-            $('#ajaxBlock2').html('&nbsp;').load('/cave/searchBouteillesCaveAjax?criteria2=' + criteria2 + '&caveId=' + caveId+ '&page2=' + page2);
+
+        function searchBouteilleEnCave(caveId,pageBouteilleEnCave) {
+            criteriaBouteilleEnCave = $('#criteriaBouteilleEnCave').val();
+
+            $('#ajaxBlockBouteilleEnCave').html('&nbsp;').load('/cave/searchBouteillesCaveAjax?criteriaBouteilleEnCave=' + criteriaBouteilleEnCave + '&caveId=' + caveId+ '&pageBouteilleEnCave=' + pageBouteilleEnCave);
         }
 
         $(document).ready(function () {
-            caveId=10
 
-            submit_ajax2(caveId);
+            // Il faut recuperer la cave actuelle.
+            caveId=$('.cave').attr('caveId');
+
+            searchBouteilleEnCave(caveId);
 
 
-            $('#criteria2').keydown(function (event) {
+            $('#criteriaBouteilleEnCave').keydown(function (event) {
                 if (event.keyCode == 13) {
-                    submit_ajax2(caveId);
+                    searchBouteilleEnCave(caveId);
                     return false;
                 }
             });
         });
 
-    $(document).ajaxStart(function() {
-	$('#spinner2').show();
+    $('#ajaxBlockBouteilleEnCave').ajaxStart(function() {
+	$('#spinnerBouteilleEnCave').show();
 }).ajaxStop(function() {
-	$('#spinner2').hide();
+	$('#spinnerBouteilleEnCave').hide();
 });
 
     </script>
@@ -53,25 +82,25 @@
 
     <div class="tab-content">
 
-        <div class="tab-pane fade in active" id="recherche2">
+        <div class="tab-pane fade in active" id="rechercheBouteilleEnCave">
             <div class="navbar-form navbar-left ">
 
                 <div class="form-group">
-                    <input id="criteria2" name="criteria2" type="text" class="form-control" placeholder="Search"
-                           value="{{ criteria }}">
+                    <input id="criteriaBouteilleEnCave" name="criteriaBouteilleEnCave" type="text" class="form-control" placeholder="Search"
+                           value="{{ criteriaBouteilleEnCave }}">
                 </div>
-                <button id="searchSubmit2" onclick="submit_ajax2()" type="button" class="btn btn-default"> GlouGlou
+                <button id="searchSubmitBouteilleEnCave" onclick="searchBouteilleEnCave()" type="button" class="btn btn-default"> GlouGlou
                 </button>
             </div>
 
         </div>
     </div>
 
-    <div style="clear:left;display:none" id="spinner2">
+    <div style="clear:left;display:none" id="spinnerBouteilleEnCave">
     *** chargement ***
     </div>
 
-    <div style="clear:left" id="ajaxBlock2">
+    <div style="clear:left" id="ajaxBlockBouteilleEnCave">
 
     </div>
 

@@ -26,6 +26,7 @@
     <script>
 
 
+
     function ajaxLibereBouteille(id_cave, nom, id) {
         tab_bouteille = Array()
         tab_bouteille[0] = {"id_cave": id_cave, "nom": nom, "id": id};
@@ -113,14 +114,22 @@
         });
     }
 
+    function rafraichirListeBouteilleCave(id_cave){
+
+                //alert("on refresh la cave:"+id_cave)
+                //On rafraichi la page du stock.
+                criteriaBouteilleEnCave = $("#criteriaBouteilleEnCave").val()
+                page_stock = $("#id_page_bouteille_cave").attr("value");
+                $("#ajaxBlockBouteilleEnCave").load("/cave/searchBouteillesCaveAjax?criteriaBouteilleEnCave="+criteriaBouteilleEnCave+"&pageBouteilleEnCave="+page_stock + "&caveId=" + caveId)
+
+    }
+
     function rafraichirStock(){
 
-
-                //On rafraichi la page du stock.
-                critere = $("#criteria").val()
-                page_stock = $("#id_page_stock").attr("value");
-                $("#ajaxBlock").load("/cave/searchBouteillesAjax?criteria="+critere+"&page="+page_stock)
-
+          //On rafraichi la page la liste des bouteilles de la cave
+                criteriaBouteilleEnBase = $("#criteriaBouteilleEnBase").val()
+                page_stock = $("#id_page_bouteille_base").attr("value");
+                $("#ajaxBlockBouteilleEnBase").load("/cave/searchBouteillesBaseAjax?criteriaBouteilleEnBase="+criteriaBouteilleEnBase+"&pageBouteilleEnBase="+page_stock)
     }
 
 
@@ -219,6 +228,8 @@ function reinitColor(mondiv){
                 notifyStockByCave();
                 // On rafraichit le stock
                 rafraichirStock();
+                // On rafraichit la liste des bouteilles en cave
+                rafraichirListeBouteilleCave(id_cave);
             }
         })
 
@@ -303,6 +314,8 @@ function reinitColor(mondiv){
                         ajaxPlaceByCave(id_cave, nom_bouteille_a_placer, id_bouteille_a_placer, x, y);
                         //On notifie
                         notifyReplaceByCave();
+                        rafraichirStock();
+                        rafraichirListeBouteilleCave(id_cave);
 
                     }
 
@@ -333,6 +346,8 @@ function reinitColor(mondiv){
                         notifyPlaceByCave();
                         rafraichirStock();
 
+                        // On rafraichit la liste des bouteilles en cave
+                        //rafraichirListeBouteilleCave(id_cave);
                     }
                     //On ajoute la div bouteille dans sa nouvelle case
                     $(this).empty().append(source);
@@ -388,6 +403,7 @@ function reinitColor(mondiv){
 
                         notifyReplaceByStock();
                         rafraichirStock();
+                        rafraichirListeBouteilleCave(id_cave);
 
                     }
                     // Si le td est libre
@@ -407,6 +423,7 @@ function reinitColor(mondiv){
                         ajaxPlaceByStock(id_cave, nom, id_bouteille, x, y);
                         notifyPlaceByStock(id_cave, nom, id_bouteille, x, y);
                         rafraichirStock();
+                        rafraichirListeBouteilleCave(id_cave);
 
                     }
 
@@ -480,6 +497,9 @@ function reinitColor(mondiv){
    .colorCase-white{
         background-color: lightgoldenrodyellow;
     }
+
+
+
     </style>
 
     Gestion de la cave {{ cave.nom }}
@@ -487,13 +507,13 @@ function reinitColor(mondiv){
     <div class="monStock">
 
         {% block monStock %}
-            {% include "html/cave/mesBouteilles.html" %}
+            {% include "html/cave/mesBouteillesEnBase.html" %}
         {% endblock %}
     </div>
 
 
 
-    <div id="maCave_{{ cave.id }}" class="cave">
+    <div id="maCave_{{ cave.id }}" caveId="{{ cave.id }}" class="cave">
 
         {% block blockCave %}
             <table id_cave="{{ cave.id }}">
@@ -580,6 +600,7 @@ function reinitColor(mondiv){
 
 
     <script>
+
 
 
     </script>
