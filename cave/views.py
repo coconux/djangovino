@@ -141,6 +141,11 @@ def home(request):
     return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
 
+
+@login_required
+def test(request):
+    return render_to_response('html/cave/test.html',"", context_instance=RequestContext(request))
+
 #@login_required
 def stock(request):
 
@@ -421,13 +426,15 @@ def voirCave(request,cave):
     return render_to_response('html/cave/voirCave.html',{'cave': c, 'bouteilles':b, 'cellules':cellOcc, 'lignes':range(c.lignes), 'colonnes':range(c.colonnes) })
 
 def populate(request):
+    #Par defaut les caves appartiennent au root
+    user = User.objects.get(id=1)
    #return render_to_response('home.html', {"foo": "bar"})
 
     #Annee
     [Annee.objects.get_or_create(nom=str(b),defaults={'nom':str(b),'annee':str(b)+'-01-01'}) for b in range(1800,2050,1)]
 
     #Cave
-    m,n = Cave.objects.get_or_create(nom="CocoVino",defaults={'nom':'CocoVino'})
+    m,n = Cave.objects.get_or_create(user=user, nom="CocoVino",defaults={'nom':'CocoVino'})
    
     #Couleur
     m,n = Couleur.objects.get_or_create(nom="Rosé",defaults={'nom':'Rosé'})
@@ -515,7 +522,7 @@ def populate(request):
     m.libere()
     """
 
-    bigcave,n = Cave.objects.get_or_create(nom="Bigcave",defaults={'nom':'Bigcave',\
+    bigcave,n = Cave.objects.get_or_create(user=user,nom="Bigcave",defaults={'nom':'Bigcave',\
                                            'lignes':10,\
                                            'colonnes':10})
                                            
