@@ -153,7 +153,7 @@ class RefBouteille(models.Model):
     anneeB = models.ForeignKey('Annee', related_name='creation', help_text="l'année du vin",\
                                blank=True, null=True, on_delete=models.SET_NULL)
 
-    regionB = models.OneToOneField('Region', primary_key=False, blank=True ,null=True)
+    regionB = models.ForeignKey('Region', blank=True ,null=True, on_delete=models.SET_NULL)
 
     imageB = models.FileField(default="void.jpeg",upload_to=upload_path )
 

@@ -29,8 +29,11 @@ urlpatterns = patterns('',
 
 
     #(r'^object-tools/', include(object_tools.tools.urls)),
+    (r'^admin/filebrowser/', include(admin.site.urls)),
 
     # Uncomment the next line to enable the admin:
+    (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
+
     url(r'^admin/', include(admin.site.urls)),
 
     #(r'^account/', include('registration.backends.default.urls')),
