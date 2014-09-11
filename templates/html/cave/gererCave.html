@@ -16,12 +16,44 @@
 {% block content %}
 
 
-    - - -
+    - - -ici
+            <div class="progress">
+            <div class="progress-bar progress-bar-blanc" style="width: {{ cave.pourcentCouleur.Blanc|stringformat:"f"}}%;">
+                <!--<span class="sr-only">20% Complete (warning)</span>-->
+                 {{ cave.pourcentCouleur.Blanc|floatformat}} % de Blanc
+            </div>
+            <div class="progress-bar progress-bar-rose" style="width: {{ cave.pourcentCouleur.Rosé|stringformat:"f"}}%">
+                {{ cave.pourcentCouleur.Rosé|floatformat}} % de Rosé
+            </div>
+
+            <div class="progress-bar progress-bar-rouge" style="width: {{ cave.pourcentCouleur.Rouge|stringformat:"f"}}%">
+                 {{ cave.pourcentCouleur.Rouge|floatformat}} % de Rouge
+            </div>
+             <div class="progress-bar progress-bar-info" style="width: {{ cave.pourcentLibre|stringformat:"f"}}%">
+                 Il reste encore {{ cave.pourcentLibre|floatformat}} % à remplir
+            </div>
+
+
+        </div>
+
 
 
 {% endblock %}
 
+
+
 {% block container %}
+
+     <span class="title ">{{ cave.nom }}-- Capacite: {{ cave.capacite }} --<br/>
+            Occupée ({{ cave.pourcentOcc|floatformat}} %): {{ cave.emplacementOccupe }} --<br/>
+            Restant(s) ({{ cave.pourcentLibre|floatformat}} %) :{{ cave.emplacementLibre }} <br/>
+            Volume {{ cave.volumeCave}} ml  <br/>
+            Valeur {{ cave.valeurCave.total}} Euros  <br/>
+            Valeur Min {{ cave.valeurCave.min}} Euros  <br/>
+            Valeur Max {{ cave.valeurCave.max}} Euros  <br/>
+            Annee min {{ cave.anneeCave.min}}   <br/>
+            Annee Max {{ cave.anneeCave.max}}   <br/>
+            </span>
 
     <script>
 
@@ -488,11 +520,11 @@ function reinitColor(mondiv){
         background-color: blue;
     }
     .colorCase-red{
-        background-color: red;
+        background-color: #d9534f;
     }
 
     .colorCase-pink{
-        background-color: hotpink;
+        background-color: lightpink;
     }
    .colorCase-white{
         background-color: lightgoldenrodyellow;

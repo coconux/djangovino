@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render_to_response, get_object_or_404
 
 from django.http import HttpResponse
-from cave.models import Cave, Couleur,TypeBouteille,Classification,Bouteille,Annee,Cellule,Pays,Region,RefBouteille
+from cave.models import Cave, Couleur,TypeBouteille,Classification,Bouteille,Annee,Cellule,Pays,Region,RefBouteille,BouteilleForm
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
@@ -22,7 +22,76 @@ from django.db.models import Count
 
 from django.contrib.auth.models import User
 
+from cave.forms import addBouteilleForm
 
+"""Traitement du formulaire d'ajout de bouteille
+"""
+### a faire verifier que anneeMax > anneeMin
+### ajouter le input pour saisir el nb bouteille
+
+def addBouteille(request):
+    #On redefinit l'action pour la valeur action dans le formulaire
+    actionFormAddBouteille='/cave/addBouteille/'
+    user = request.user
+    if request.method == 'POST':  # S'il s'agit d'une requête POST
+        form = BouteilleForm(request.POST)  # Nous reprenons les données
+
+        if form.is_valid(): # Nous vérifions que les données envoyées sont valides
+
+            newBouteille = form.save(commit=False)
+            newBouteille.user = user
+            newBouteille.save();
+
+        else:
+            print ("pas valide")
+
+
+    else: # Si ce n'est pas du POST, c'est probablement une requête GET
+        #idBouteille = form.cleaned_data['idBouteille']
+        form = BouteilleForm()  # Nous créons un formulaire vide
+
+    return render(request,'html/cave/formAddBouteille.html',{'form': form,'actionFormAddBouteille': actionFormAddBouteille, }, context_instance=RequestContext(request))
+    #return HttpResponse(request)
+
+
+def addBouteille2(request):
+
+    #On redefinit l'action pour la valeur action dans le formulaire
+    actionFormAddBouteille='/cave/addBouteille/'
+
+    if request.method == 'POST':  # S'il s'agit d'une requête POST
+        form = addBouteilleForm(request.POST)  # Nous reprenons les données
+
+        ### Verifier que la bouteille existe ###
+
+
+
+
+        if form.is_valid(): # Nous vérifions que les données envoyées sont valides
+            idBouteille = form.cleaned_data['idBouteille']
+            if idBouteille:
+                bouteille = RefBouteille.objects.get(pk=idBouteille)
+                if bouteille:
+                    pass
+                else:
+                    return render(request,'html/cave/formAddBouteille.html',{'form': form,'actionFormAddBouteille': actionFormAddBouteille, }, context_instance=RequestContext(request))
+            # Ici nous pouvons traiter les données du formulaire
+            nbBouteille = form.cleaned_data['nbBouteille']
+            prixUnitaire = form.cleaned_data['prixUnitaire']
+            gardeMin = form.cleaned_data['gardeMin']
+            gardeMax = form.cleaned_data['gardeMax']
+
+            #print(idBouteille+nbBouteille+prixUnitaire+gardeMax+gardeMin)
+
+            #On creer un formulaire vide pour reset
+            form = addBouteilleForm()  # Nous créons un formulaire vide
+
+    else: # Si ce n'est pas du POST, c'est probablement une requête GET
+        idBouteille = form.cleaned_data['idBouteille']
+        form = addBouteilleForm()  # Nous créons un formulaire vide
+
+    return render(request,'html/cave/formAddBouteille.html',{'form': form,'actionFormAddBouteille': actionFormAddBouteille, }, context_instance=RequestContext(request))
+    #return HttpResponse(request)
 
 
 class RefBouteilleList(ListView):
@@ -93,6 +162,9 @@ def gerercave(request,num):
 
     # on recupere la cave passe en arg
     maCave = get_object_or_404(Cave, pk=num, user=user)
+    # le template herite du template home qui contient el nombre de cave
+    mesCaves = Cave.objects.filter(user=user)
+    nbCave = mesCaves.count()
 
     #Faire le filtrage des bouteilles placées dans cette cave
     #On en filtre pas par le user, la cave appartient deja a l'utilisateur
@@ -109,6 +181,8 @@ def gerercave(request,num):
         'cave':maCave,
         'lignes':range(maCave.lignes),
         'colonnes':range(maCave.colonnes),
+        'nbCave':nbCave,
+        'mesCaves':mesCaves,
         #'cellules':cellOcc,
 
     }
@@ -138,7 +212,17 @@ def testcave(request):
 
 @login_required
 def home(request):
-    return render_to_response('html/cave/home.html',"", context_instance=RequestContext(request))
+
+    user = request.user
+    mesCaves = Cave.objects.filter(user=user)
+    nbCave = mesCaves.count()
+    template = 'html/cave/home.html'
+    data = {
+        'nbCave':nbCave,
+        'mesCaves':mesCaves,
+    }
+
+    return render_to_response(template, data, context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
 
 
@@ -148,6 +232,11 @@ def test(request):
 
 #@login_required
 def stock(request):
+
+    form = BouteilleForm()
+    #Lors du premier chargement de la page stock, il faut rendre le formAddBouteille.
+    #l'action du form se trouve dans cette constante.
+    actionFormAddBouteille = '/cave/addBouteille/'
 
 
     #c = RefBouteille.objects.all()
@@ -160,7 +249,7 @@ def stock(request):
 
 
     #return render_to_response('html/cave/stock.html', context_instance=RequestContext(request))
-    return render(request,'html/cave/stock.html', context_instance=RequestContext(request))
+    return render(request,'html/cave/stock.html',{'form': form,'actionFormAddBouteille':actionFormAddBouteille }, context_instance=RequestContext(request))
 
     #return render_to_response('html/cave/stock.html',{'listeDerniereBouteille':listeDerniereBouteille,'nb':3}, context_instance=RequestContext(request))
     #return render_to_response('html/cave/base.html',"", context_instance=RequestContext(request))
@@ -424,6 +513,7 @@ def voirCave(request,cave):
     cellOcc=[b for b in c.mesCellules.select_related() if b.occupe is True]
 
     return render_to_response('html/cave/voirCave.html',{'cave': c, 'bouteilles':b, 'cellules':cellOcc, 'lignes':range(c.lignes), 'colonnes':range(c.colonnes) })
+
 
 def populate(request):
     #Par defaut les caves appartiennent au root

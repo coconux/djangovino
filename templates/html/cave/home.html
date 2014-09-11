@@ -16,7 +16,17 @@
     <ul class="nav navbar-nav">
         <li class="active"><a href="/cave/home/">Accueil</a></li>
         <li><a href="/cave/stock/">Les références </a></li>
-        <li><a href="/cave/mesCaves/">Mes caves</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mes caves ({{ nbCave }})  <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="/cave/mesCaves/">Détail des caves</a></li>
+            {% for x in mesCaves %}
+                <li><a href="/cave/gererCave/{{ x.id }}">{{ x.nom }} (Occupation: {{ x.emplacementOccupe }} /{{ x.capacite }})</a></span></li>
+            {% endfor %}
+            </ul>
+        </li>
+
+
         <li><a href="#">Mes bouteilles</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
@@ -71,9 +81,7 @@
 
 
 {% block content %}
-    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a
-        mostly barebones HTML document.</p>
-    </div>
+
 
 {% endblock %}
 

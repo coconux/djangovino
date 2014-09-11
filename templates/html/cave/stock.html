@@ -1,7 +1,7 @@
 {% extends "html/cave/home.html" %}
 
 
-{% block title %} Les références{% endblock %}
+{% block title %} Les références {% endblock %}
 
 
 {% block content %}
@@ -9,32 +9,159 @@
 
 {% block container %}
 
-    <script>
 
-        function submit_ajax(page) {
-            criteria = $('#criteria').val();
+    <style>
 
-            $('#ajaxBlock').html('&nbsp;').load('/cave/searchStockAjax?criteria=' + criteria + '&page=' + page);
+        .form-field {
+            border: 1px solid #c9b7a2;
+            background: #e4d5c3;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            color: #c9b7a2;
+            -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(000, 000, 000, 0.7) 0 0px 0px;
+            -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(000, 000, 000, 0.7) 0 0px 0px;
+            box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0, inset rgba(000, 000, 000, 0.7) 0 0px 0px;
+            padding: 8px;
+            margin-bottom: 20px;
+            width: 280px;
         }
 
+        .form-field:focus {
+            background: #fff;
+            color: #725129;
+        }
+
+        .form-title {
+            margin-bottom: 10px;
+            color: #725129;
+            text-shadow: #fdf2e4 0 1px 0;
+        }
+
+    </style>
+
+
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Ajout cette bouteille à mon stock
+    </button>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                    {#On charge le formulaire à l'ouverture de la page#}
+                    {% include "html/cave/formAddBouteille.html" %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        /* Quand on close le modal, on vide les champs */
+        /*$('#myModal').on('hide.bs.modal', function (e) {
+         //on vide les input
+         $('#formAddBouteille :input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+         $('#formAddBouteille :checkbox, :radio').prop('checked', false);
+         $('#formAddBouteille>div#message').html("")
+
+
+         })
+         */
+
+        /*$('#myModal').on('show.bs.modal', function(e){
+         })
+         */
+
+
+        {# Au chargement de la page #}
         $(document).ready(function () {
 
+
+            {# Au chargement de la page on peuple le stock #}
             submit_ajax();
 
-
+            {# on ecoute sur le retoru chariot #}
             $('#criteria').keydown(function (event) {
                 if (event.keyCode == 13) {
                     submit_ajax()
                     return false;
                 }
             });
+            {# Affichage du spinner lors du chargement ajax #}
+            $('#ajaxBlock').ajaxStart(function () {
+                $('#spinnerBouteilleEnRef').show();
+            }).ajaxStop(function () {
+                        $('#spinnerBouteilleEnRef').hide();
+                    });
+
+            {# Lors du submit du formualaire par l'un des deux boutons de validation #}
+            $("#formAddBouteille").submit(function (ev) {
+                {# On recupere le bouton pur savoir si on continue ou on ferme le formulaire #}
+                //var btn = $(this).find("button[type=submit]:focus");
+                //var submitBtn = $(btn).attr("id")
+                {# On desactive le submit classique html pour le gérer avec jquery #}
+                event.preventDefault();
+                var urlSubmit = $(this).attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: urlSubmit,
+                    async: false,
+                    data: $(this).serializeArray(),
+                    success: function (data) {
+                        $('#formAddBouteille').hide();
+                        $('#formAddBouteille').html();
+                        $('#formAddBouteille').html(data);
+                        $('#formAddBouteille').fadeIn("slow");
+                    },
+                    complete: function (data) {
+                        {# Si le formulaire ne comporte pas d'erreur #}
+                        if ($("div#hasError").length == 0) {
+                            {# Si on clique sur save and close sans erreur, on ferme #}
+                            //if (submitBtn == "submitClose") {
+                            $('#myModal').modal('hide');
+                            //}
+                            {# On notifie de l'ajout de bouteille #}
+                            notifyAjoutBouteille();
+                        }
+                    }
+
+                });
+
+                return false;
+            });
+
+
         });
 
-    $(document).ajaxStart(function() {
-	$('#spinner').show();
-}).ajaxStop(function() {
-	$('#spinner').hide();
-});
+        {# Notification d'ajout de bouteille dans le stock #}
+        function notifyAjoutBouteille() {
+            $.pnotify({
+                title: 'Bootstrap Info',
+                text: 'Ajout de bouteille dans le stock',
+                type: 'info',
+                styling: 'bootstrap'
+            });
+        }
+
+        {#  Fonction de chargement des bouteilles  #}
+        function submit_ajax(page) {
+            criteria = $('#criteria').val();
+            $('#ajaxBlock').html('&nbsp;').load('/cave/searchStockAjax?criteria=' + criteria + '&page=' + page);
+        }
+
 
     </script>
 
@@ -56,8 +183,8 @@
         </div>
     </div>
 
-    <div style="clear:left;display:none" id="spinner">
-    *** chargement ***
+    <div style="clear:left;display:none" id="spinnerBouteilleEnRef">
+        *** chargement ***
     </div>
 
     <div style="clear:left" id="ajaxBlock">
