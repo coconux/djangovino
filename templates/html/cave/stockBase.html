@@ -3,6 +3,21 @@
 {% block containerStock %}
 
     <script>
+
+    $(document).on("click", ".boutonAddBouteille", function (e) {
+
+	e.preventDefault();
+
+	var _self = $(this);
+
+	var bouteilleId = _self.data('id');
+	var bouteilleName = _self.data('name');
+	var bouteilleAnnee = _self.data('annee');
+	$("#id_idBouteille").val(bouteilleId);
+	$("#myModalLabel").html(bouteilleName +"("+ bouteilleAnnee+")");
+
+	$(_self.attr('href')).modal('show');
+});
     /* appel ajax pour ajouter nb bouteille dans le stock de l'utilisateur
     Ceci appel al focntion rapide d'ajout, qui prend les vaeurs par defaut
     */
@@ -31,8 +46,11 @@
         <span class="title ">{{ x.anneeB.nom }}-{{ x.nomB }}-{{ x.typeB }}</span> <br/>
         {% if user.is_authenticated %}
 
-        <a  onclick="addToStockFromRef({{ x.id }},1)"> Ajout rapide à mon stock </a> <br/>
-        <a  href="#"> Ajout détaillé dans mon stock </a>
+
+        <button class="btn btn-primary boutonAddBouteille" data-toggle="modal" data-target="#myModal" data-id="{{ x.id }}"
+        data-name="{{ x.nomB }}" data-annee="{{ x.anneeB }}">
+        Ajout cette bouteille à mon stock
+        </button>
         {% endif %}
     <br/>
 

@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^populate/', views.populate, name='populate'),
     url(r'^testcave/', views.testcave, name='testcave'),
     url(r'^home/', views.home, name='home'),
+    url(r'^test/', views.test, name='test'),
     url(r'^stock/', views.stock, name='stock'),
     #url(r'^searchStock$', views.searchStock, name='searchStock'),
     url(r'^searchStockAjax$', views.searchStockAjax, name='searchStockAjax'),
@@ -27,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^add_bouteille$', views.add_bouteille, name='add_bouteille'),
     url(r'^place_bouteille$', views.place_bouteille, name='place_bouteille'),
     url(r'^libere_bouteille$', views.libere_bouteille, name='libere_bouteille'),
+    url(r'^addBouteille/$', views.addBouteille ,name='addBouteille'),
 
 
     #url(r'^$', views.TicketView, name='TicketView')

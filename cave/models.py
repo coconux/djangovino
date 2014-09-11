@@ -9,6 +9,8 @@ from django.core.validators import MaxLengthValidator
 
 from django.contrib.auth.models import User
 
+from django.forms import ModelForm
+from django import forms
 # Create your models here.
 
 
@@ -24,7 +26,7 @@ class Cave(models.Model):
 
     dateCreation = models.DateTimeField(auto_now_add=True, help_text="")
     dateModification = models.DateTimeField(auto_now=True, help_text="")
-    
+
     # Avant de sauvegarder une cave, nous créons les cellules si celles-ci n'hesitent pas
     def save(self, *args, **kwargs):
         super(Cave, self).save(*args, **kwargs) # Appeler la "vraie" méthode save().
@@ -32,7 +34,7 @@ class Cave(models.Model):
         A =[(x, y)  for y in [yy for yy in range (0,self.lignes,1)] for x in [xx for xx in range(0,self.colonnes,1)]  ]
         [ Cellule.objects.get_or_create(cave=self,x=A[X][0],y=A[X][1], defaults={'cave':self,'x':A[X][0],'y':A[X][1]})  for X in range (0,len(A),1)]
         #do_something_else()
-    
+
     # Retourne la capacite de la cave
     @property
     def capacite(self):
@@ -120,9 +122,9 @@ class Cellule(models.Model):
         try:
             occupeBy = type(self.maBouteille)
         except ObjectDoesNotExist:
-            occupeBy = None 
+            occupeBy = None
         return occupeBy
-    
+
     # Retourne True si la cellule est occupe par une bouteille             
     @property
     def occupe(self):
@@ -131,8 +133,8 @@ class Cellule(models.Model):
         else:
             occupe = True
         return occupe
-                
-    
+
+
     def __str__(self):
         return '%s --> %s;%s -->%s -->%s' %(self.cave.nom, self.x, self.y,self.occupe,self.occupeBy)
 
@@ -172,24 +174,23 @@ class Bouteille(models.Model):
 
     user = models.ForeignKey(User, related_name='monProprioBouteille')
 
-    refB = models.ForeignKey('RefBouteille', related_name='maReference', help_text="la reference bouteille",\
-                               blank=True, null=True, on_delete=models.SET_NULL)
+    refB = models.ForeignKey('RefBouteille', related_name='maReference', help_text="la reference bouteille" )
 
     gardeMinB = models.ForeignKey('Annee', related_name='consoMin', help_text="Annee minimale pour boire la bouteille",\
                                blank=True, null=True, on_delete=models.SET_NULL)
     gardeMaxB = models.ForeignKey('Annee', related_name='consoMax', help_text="Annee max pour boire la bouteille",\
                                blank=True, null=True, on_delete=models.SET_NULL)
     prixB = models.DecimalField(default="20",max_digits=8,decimal_places=2, help_text="Prix de la bouteille en euros €")
-    
+
     celluleB = models.OneToOneField('Cellule', related_name='maBouteille', primary_key=False, blank=True ,null=True)
 
-    
+
 
     rating = models.IntegerField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
     partage = models.BooleanField(help_text="Rendre cette bouteille visible par tous?")
 
     observation = models.TextField(default="Mon observation", max_length=750,validators=[MaxLengthValidator(750)])
-    
+
 
     def __str__(self):
         return '%s' %self.refB.nomB
@@ -203,7 +204,9 @@ class Bouteille(models.Model):
     def place(self,dest):
         self.celluleB = dest
         self.save()
-    
+
+
+
 
 class Annee(models.Model):
     nom = models.CharField(unique=True,default="2009",max_length=10,help_text="")
@@ -232,10 +235,10 @@ class TypeBouteille(models.Model):
     nom = models.CharField(unique=True,default="Magnum",max_length=50, help_text="")
     volume = models.CharField(default="75cl",max_length=10, help_text="")
     ml = models.DecimalField(max_digits=6,decimal_places=2, help_text="Quantité  en ml")
-    
+
     def __str__(self):
         return '%s' %self.nom +' --> %s' %self.volume
-    
+
     # Apres validation du formulaire, nous faisons quelques transformations (avant save)
     # Ex: nom = "    blue     ciel " Resultat nom="Bleu ciel" 
     def clean(self):
@@ -243,30 +246,39 @@ class TypeBouteille(models.Model):
 
 class Classification(models.Model):
     nom = models.CharField(unique=True,default="Grand cru",max_length=100, help_text="")
-    
+
     def __str__(self):
-        return '%s' %self.nom 
+        return '%s' %self.nom
 
     # Apres validation du formulaire, nous faisons quelques transformations (avant save)
-    # Ex: nom = "    blue     ciel " Resultat nom="Bleu ciel" 
+    # Ex: nom = "    blue     ciel " Resultat nom="Bleu ciel"
     def clean(self):
         self.nom = re.sub(' +',' ',self.nom).strip().title()
 
 class Pays(models.Model):
     nom = models.CharField(unique=True,default="France",max_length=100, help_text="")
-    
+
     def __str__(self):
-        return '%s' %self.nom 
-    
+        return '%s' %self.nom
+
     # Apres validation du formulaire, nous faisons quelques transformations (avant save)
-    # Ex: nom = "    blue     ciel " Resultat nom="Bleu ciel" 
+    # Ex: nom = "    blue     ciel " Resultat nom="Bleu ciel"
     def clean(self):
         self.nom = re.sub(' +',' ',self.nom).strip().title()
-    
+
 class Region(models.Model):
     paysR = models.ForeignKey('Pays',  null=False, on_delete=models.CASCADE)
     nom = models.CharField(unique=True,default="Bordeaux",max_length=100, help_text="")
-     
+
     def __str__(self):
-        return '%s' %self.nom 
+        return '%s' %self.nom
+
+
+
+""" A la fin """
+class BouteilleForm(ModelForm):
+    class Meta:
+        model = Bouteille
+        fields = ['refB', 'prixB', 'gardeMinB', 'gardeMaxB']
+        exclude = ['user']
 
