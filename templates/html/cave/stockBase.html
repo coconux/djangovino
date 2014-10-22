@@ -4,39 +4,165 @@
 
     <script>
 
-    $(document).on("click", ".boutonAddBouteille", function (e) {
+        // Verifie les champs checkbox du formulaire d'ajout de bouteille et leur commentaire.
+        // Effectue un nettoyage et affiche la zone de commentaire si la case est cochée.
+        function checkForm(element, idCommentaire, partageCommentaire) {
+            if (typeof(partageCommentaire) === 'undefined') {
+                var partage = false;
+            } else {
+                var partage = true
 
-	e.preventDefault();
+            }
 
-	var _self = $(this);
 
-	var bouteilleId = _self.data('id');
-	var bouteilleName = _self.data('name');
-	var bouteilleAnnee = _self.data('annee');
-	$("#id_idBouteille").val(bouteilleId);
-	$("#myModalLabel").html(bouteilleName +"("+ bouteilleAnnee+")");
+            // Sur le changement d'état du bouton bu
+            $(element).change(function () {
 
-	$(_self.attr('href')).modal('show');
-});
-    /* appel ajax pour ajouter nb bouteille dans le stock de l'utilisateur
-    Ceci appel al focntion rapide d'ajout, qui prend les vaeurs par defaut
-    */
-    function addToStockFromRef(idRef,nb){
-    tab_bouteille = Array()
-    tab_bouteille[0]={"idRef": idRef, "nb": nb};
+                // Si on le coche, on montre la zone de commentaire et la checkbox de partage du commentaire
+                if ($(element).is(":checked")) {
+                    //$(idCommentaire).parent().show();
+                    $(idCommentaire).parent().fadeToggle("slow", "linear");
+                    if (partage) {
+                        $(partageCommentaire).parent().show();
+                    }
+                } else {
+                    // Sinon on decoche, on vide les champs commentaire et partage, puis on cache
+                    $(idCommentaire).val('');
+                    //$(idCommentaire).parent().hide();
+                    $(idCommentaire).parent().fadeToggle("fast", "linear");
 
-    $.ajax({
-        type: "POST",
-        url: "/cave/addToStockFromRef",
-        dataType: "json",
-        traditional: true,
-        data: {'list_bouteille': JSON.stringify(tab_bouteille)},
-        success: function(data) {
-            console.log(data["HTTPRESPONSE"]);
+                    if (partage) {
+                        $(partageCommentaire).prop('checked', false);
+                        $(partageCommentaire).parent().hide();
+                    }
+                }
+            });
+
+            // A l'ouverture du modal, on regarde les  valeurs  du  formulaire
+            // On cache les commentaires si la case bu n'est pas cochée, ce qui est le cas à la première ouverture.
+            // Si on reutilise le formulaire, ces valeurs peuvent changer, le champs bu peut etre coché, on conserve ainsi les anciennes valeurs
+
+            if (!$(element).is(":checked")) {
+                $(idCommentaire).parent().hide();
+                $(partageCommentaire).parent().hide();
+
+            }
         }
-});
-    //href="/cave/addToStockFromRef/{{ x.id }}"
-}
+        // A l'ouverture du modal d'ajout de la bouteille
+        $('#myModal').on('show.bs.modal', function (e) {
+
+
+            idBu = $("#id_bu");
+            checkForm(idBu, "#id_commentaireBu", "#id_partageCommentaireBu");
+            idOffert = $("#id_offert");
+            checkForm(idOffert, "#id_commentaireOffert");
+            idCadeau = $("#id_cadeau");
+            checkForm(idCadeau, "#id_commentaireCadeau");
+
+            // Sur le changement d'état du bouton bu
+            /*$("#id_bu").change(function () {
+             // Si on le coche, on montre la zone de commentaire et la checkbox de partage du commentaire
+             if ($(this).is(":checked")) {
+             $("#id_commentaireBu").parent().show();
+             $("#id_partageCommentaireBu").parent().show();
+             } else {
+             // Sinon on decoche, on vide les champs commentaire et partage, puis on cache
+             $("#id_commentaireBu").val('');
+             $("#id_commentaireBu").parent().hide();
+             $("#id_partageCommentaireBu").prop('checked', false);
+             $("#id_partageCommentaireBu").parent().hide();
+             }
+             });
+
+             // A l'ouverture du modal, on regarde les  valeurs  du  formulaire
+             // On cache les commentaires si la case bu n'est pas cochée, ce qui est le cas à la première ouverture.
+             // Si on reutilise le formulaire, ces valeurs peuvent changer, le champs bu peut etre coché, on conserve ainsi les anciennes valeurs
+
+             if (!$("#id_bu").is(":checked")) {
+             $("#id_commentaireBu").parent().hide();
+             $("#id_partageCommentaireBu").parent().hide();
+             }
+
+             //Sur le changement d'état du cadeau
+             $("#id_cadeau").change(function () {
+             // Si on le coche, on montre la zone de commentaire
+             if ($(this).is(":checked")) {
+             $("#id_commentaireCadeau").parent().show();
+             } else {
+             //Sinon on cache et on vide
+             $("#id_commentaireCadeau").val('');
+             $("#id_commentaireCadeau").parent().hide();
+             }
+             });
+
+             // A l'ouverture du modal, on regarde les  valeurs  du  formulaire
+             // On cache les commentaires si la case cadeau n'est pas cochée, ce qui est le cas à la première ouverture.
+             // Si on reutilise le formulaire, ces valeurs peuvent changer, le champs bu peut etre coché, on conserve ainsi les anciennes valeurs
+             if (!$("#id_cadeau").is(":checked")) {
+             $("#id_commentaireCadeau").parent().hide();
+             }
+
+             //Sur le changement d'état de offert
+             $("#id_offert").change(function () {
+             // Si on le coche, on montre la zone de commentaire
+
+             if ($(this).is(":checked")) {
+             $("#id_commentaireOffert").parent().show();
+             } else {
+             //Sinon on cache et on vide
+             $("#id_commentaireOffert").val('');
+             $("#id_commentaireOffert").parent().hide();
+             }
+             });
+
+             // A l'ouverture du modal, on regarde les  valeurs  du  formulaire
+             // On cache les commentaires si la case offert n'est pas cochée, ce qui est le cas à la première ouverture.
+             // Si on reutilise le formulaire, ces valeurs peuvent changer, le champs bu peut etre coché, on conserve ainsi les anciennes valeurs
+             if (!$("#id_offert").is(":checked")) {
+             $("#id_commentaireOffert").parent().hide();
+             }
+
+
+             */
+        });
+
+
+        $(document).on("click", ".boutonAddBouteille", function (e) {
+
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var bouteilleId = _self.data('id');
+            var bouteilleName = _self.data('name');
+            var bouteilleAnnee = _self.data('annee');
+            //$("#id_idBouteille").val(bouteilleId);
+            $("#myModalLabel").html(bouteilleName + "(" + bouteilleAnnee + ")");
+
+            $(_self.attr('href')).modal('show');
+            bouteilleIdString = '"' + bouteilleId + '"'
+            $("#id_refB").val(bouteilleId)
+        });
+
+        /* appel ajax pour ajouter nb bouteille dans le stock de l'utilisateur
+         Ceci appel al focntion rapide d'ajout, qui prend les vaeurs par defaut
+         */
+        function addToStockFromRef(idRef, nb) {
+            tab_bouteille = Array()
+            tab_bouteille[0] = {"idRef": idRef, "nb": nb};
+
+            $.ajax({
+                type: "POST",
+                url: "/cave/addToStockFromRef",
+                dataType: "json",
+                traditional: true,
+                data: {'list_bouteille': JSON.stringify(tab_bouteille)},
+                success: function (data) {
+                    console.log(data["HTTPRESPONSE"]);
+                }
+            });
+            //href="/cave/addToStockFromRef/
+        }
     </script>
 
     {% for x in listeBouteille %}
@@ -47,12 +173,13 @@
         {% if user.is_authenticated %}
 
 
-        <button class="btn btn-primary boutonAddBouteille" data-toggle="modal" data-target="#myModal" data-id="{{ x.id }}"
-        data-name="{{ x.nomB }}" data-annee="{{ x.anneeB }}">
-        Ajout cette bouteille à mon stock
-        </button>
+            <button class="btn btn-primary boutonAddBouteille" data-toggle="modal" data-target="#myModal"
+                    data-id="{{ x.id }}"
+                    data-name="{{ x.nomB }}" data-annee="{{ x.anneeB }}">
+                Ajout cette bouteille à mon stock
+            </button>
         {% endif %}
-    <br/>
+        <br/>
 
     {% endfor %}
     <br/>

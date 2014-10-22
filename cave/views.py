@@ -35,12 +35,19 @@ def addBouteille(request):
     user = request.user
     if request.method == 'POST':  # S'il s'agit d'une requête POST
         form = BouteilleForm(request.POST)  # Nous reprenons les données
+        nbBouteille = request.POST['nb']
+        if nbBouteille:
+            nbBouteille = int(nbBouteille)
+        else:
+            nbBouteille=0
 
         if form.is_valid(): # Nous vérifions que les données envoyées sont valides
-
             newBouteille = form.save(commit=False)
-            newBouteille.user = user
-            newBouteille.save();
+            for nb in range(0,nbBouteille):
+                print("ajout:")
+                newBouteille.user = user
+                newBouteille.save();
+                newBouteille.pk = None
 
         else:
             print ("pas valide")
@@ -50,7 +57,7 @@ def addBouteille(request):
         #idBouteille = form.cleaned_data['idBouteille']
         form = BouteilleForm()  # Nous créons un formulaire vide
 
-    return render(request,'html/cave/formAddBouteille.html',{'form': form,'actionFormAddBouteille': actionFormAddBouteille, }, context_instance=RequestContext(request))
+    return render(request,'html/cave/formAddBouteille.html',{'form': form,'actionFormAddBouteille': actionFormAddBouteille,'nbBouteille':nbBouteille, }, context_instance=RequestContext(request))
     #return HttpResponse(request)
 
 
@@ -315,6 +322,8 @@ def searchBouteillesBaseAjax(request):
         if True:
             #listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria),user=user )
             listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria) ,user=user )
+            # On liste dans notre stock, les bouteilles qui n'ont pas été bues ni offertes
+            listeBouteille = Bouteille.objects.filter( Q(refB__nomB__icontains=criteria) ,user=user, bu=False, offert=False)
 
 
             #les ref bouteilles

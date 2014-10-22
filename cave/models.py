@@ -141,7 +141,8 @@ class Cellule(models.Model):
 class RefBouteille(models.Model):
 
     def upload_path(self, filename):
-            return 'imgVin/%s_%s' % (self.nomB.replace(" ","_"), filename)
+            #return 'imgVin/%s_%s' % (self.nomB.replace(" ","_"), filename)
+            return 'imgVin/%s_%s.%s' % (self.pk, "bouteille", filename.rsplit('.')[-1])
 
     nomB = models.CharField(default="Ma teille",max_length=50, help_text="")
     typeB = models.ForeignKey('TypeBouteille', help_text="le type de\
@@ -180,20 +181,30 @@ class Bouteille(models.Model):
                                blank=True, null=True, on_delete=models.SET_NULL)
     gardeMaxB = models.ForeignKey('Annee', related_name='consoMax', help_text="Annee max pour boire la bouteille",\
                                blank=True, null=True, on_delete=models.SET_NULL)
-    prixB = models.DecimalField(default="20",max_digits=8,decimal_places=2, help_text="Prix de la bouteille en euros €")
+    prixB = models.DecimalField(default="",max_digits=8,decimal_places=2, help_text="Prix de la bouteille en euros €")
 
     celluleB = models.OneToOneField('Cellule', related_name='maBouteille', primary_key=False, blank=True ,null=True)
 
-
-
     rating = models.IntegerField(default=0,validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+    bu = models.BooleanField(help_text="Cocher si vous avez bu cette bouteille")
+    commentaireBu = models.TextField(default="", blank=True, max_length=750,validators=[MaxLengthValidator(750)])
+    partageCommentaireBu = models.BooleanField(help_text="Rendre ce commentaire visible par tous les membres")
+
+    cadeau = models.BooleanField(help_text="Vous as-t'on offert cette bouteille ")
+    commentaireCadeau = models.TextField(default="", blank=True, max_length=750,validators=[MaxLengthValidator(750)])
+
+    offert = models.BooleanField(help_text="Avez-vous offert cette bouteille ")
+    commentaireOffert = models.TextField(default="", blank=True, max_length=750,validators=[MaxLengthValidator(750)])
+
     partage = models.BooleanField(help_text="Rendre cette bouteille visible par tous?")
 
-    observation = models.TextField(default="Mon observation", max_length=750,validators=[MaxLengthValidator(750)])
+    observation = models.TextField(default="", blank=True, max_length=750,validators=[MaxLengthValidator(750)])
 
 
     def __str__(self):
-        return '%s' %self.refB.nomB
+        return '%s' %self.refB.anneeB +' - %s' %self.refB.nomB
+
 
     # Sort la bouteille d'un emplacement    
     def libere(self):
@@ -279,6 +290,11 @@ class Region(models.Model):
 class BouteilleForm(ModelForm):
     class Meta:
         model = Bouteille
-        fields = ['refB', 'prixB', 'gardeMinB', 'gardeMaxB']
+        #Apres le syncdb, avec postgres
+        #widgets = {'commentaireBu': forms.HiddenInput(), 'commentaireCadeau': forms.HiddenInput(),'commentaireOffert': forms.HiddenInput()}
+
+        fields = ['refB', 'prixB', 'gardeMinB', 'gardeMaxB','bu','commentaireBu','partageCommentaireBu','cadeau', 'commentaireCadeau', 'offert','commentaireOffert','observation','partage']
+
+        #fields = ['refB', 'prixB', 'gardeMinB', 'gardeMaxB','observation']
         exclude = ['user']
 
