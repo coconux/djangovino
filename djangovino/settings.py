@@ -11,36 +11,38 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        'NAME': 'django_db',                      # Or path to database file if using sqlite3.
-#        #'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        #'NAME': '/Users/coco/Documents/django/wickets/db',                      # Or path to database file if using sqlite3.
-#        # The following settings are not used with sqlite3:
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-#        'PORT': '',                      # Set to empty string for default.
-#        'OPTIONS': {'autocommit': True,}
-#    }
-#}
-
+##Ref
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        #'NAME': 'django_db',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'baseRefPostgresql',                      # Or path to database file if using sqlite3.
         #'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/coco/Desktop/Geek/djangovino/django_db',                      # Or path to database file if using sqlite3.
+        #'NAME': '/Users/coco/Documents/django/wickets/db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
-        #'OPTIONS': {'autocommit': True,}
+        'OPTIONS': {'autocommit': True,}
     }
 }
-
+"""
+#dev
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'baseDevPostgresql',                      # Or path to database file if using sqlite3.
+        #'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        #'NAME': '/Users/coco/Documents/django/wickets/db',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
+        'OPTIONS': {'autocommit': True,}
+    }
+}
+"""
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -155,18 +157,20 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     #'object_tools',
-    'grappelli',
-    'filebrowser',
+    #'grappelli',
+    #'filebrowser',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'cave',
     #'login',
-    'registration',
-    'registration_bootstrap',
+    #'registration',
+    #'registration_bootstrap',
     #'dajaxice',
     #'dajax',
     #'crispy_forms',
-    'south',
+    #'south',
+    #'debug_toolbar',
+    #'django_extensions',
 
     # Uncomment the next line to enable admin documentation:
 )
